@@ -1,8 +1,13 @@
-import React from 'react';
-import './App.css';
-import AccInfo from './AccInfo';
+import React, { useEffect } from 'react'
+import './App.css'
+import AccInfo from './AccInfo'
+import fetchData from '../API'
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <div className="App">
       <nav>
