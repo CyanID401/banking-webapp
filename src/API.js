@@ -100,11 +100,28 @@ mock.onGet(endpoint).reply(200,
     fakeData
 )
 
-const fetchData = () => {
+export const fetchData = () => {
+    let data = []
     axios.get(endpoint)
     .then((res) => {
-        return res.data
+        data = [...res.data.users]
+    })
+    return data
+}
+
+export const fetchUserData = (id) => {
+    let data = []
+    axios.get(endpoint)
+    .then((res) => {
+        let filtered = filterElement(res.data.users, id)
+        data.push(filtered)
+    })
+    return data
+}
+
+const filterElement = (arr, id) => {
+    return arr.filter((item) => {
+        return item.id === id
     })
 }
 
-export default fetchData

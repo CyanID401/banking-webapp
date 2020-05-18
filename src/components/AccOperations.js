@@ -25,7 +25,7 @@ const AccOperations = () => {
                 <SelectList label={'To Account:'} />
                 <InputBox label={'Amount:'} placeholder={'0.0'}/>
                 <InputBox label={'Reason:'} />
-                <Button text={'Transfer'} />
+                <Button text={'Deposit'} />
             </form>
         </div>
         </>

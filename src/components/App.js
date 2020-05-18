@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import './App.css'
 import AccInfo from './AccInfo'
-import fetchData from '../API'
 
 const App = () => {
-  useEffect(() => {
-    fetchData()
-  }, [])
-
   return (
     <div className="App">
       <nav>
@@ -21,5 +17,7 @@ const App = () => {
     </div>
   );
 }
+
+
 
 export default App;

@@ -35,7 +35,6 @@ const AccTransactions = () => {
             <h2>History of Transactions</h2>
             {state.map((item, index) =>
                 <li key={index}>
-                    
                     <span>{item.date}</span>
                     <span>{item.reason}</span>
                     <span style={setColor(item)}>{item.amount}</span>
