@@ -1,17 +1,28 @@
-import { fetchUserData } from '../../API'
+import * as actions from '../actions/actionTypes'
 
-let initialState = fetchUserData(0)
+let initialState = {
+    data: {}, 
+    isDataLoaded: false
+}
 
-const fundsReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN':
-            return 
-        case 'LOGOUT':
-            return
+        case actions.LOGIN:
+            return state
+        case actions.LOGOUT:
+            return state
+        case actions.INITIALIZE_STATE:
+            console.log('Initializating state from mock API')
+            console.log(action.data)
+            return {
+                ...state,
+                data: action.data,
+                isDataLoaded: true
+            }
         default:
             return state
     }
 }
 
-export default fundsReducer
+export default userReducer
 

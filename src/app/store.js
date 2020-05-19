@@ -1,3 +1,4 @@
+import thunkMiddleware from "redux-thunk";
 import { configureStore } from '@reduxjs/toolkit'
 import fundsReducer from './reducers/fundsReducer'
 import accountReducer from './reducers/accountReducer'
@@ -9,4 +10,5 @@ export default configureStore({
     account: accountReducer,
     user: userReducer
   },
+  middleware: [thunkMiddleware]
 });

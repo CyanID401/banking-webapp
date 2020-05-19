@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Label from './Label'
 
-const SelectList = ( {elements, label} ) => {
-    const [items] = useState(() => [['Select']])
+const SelectList = ( {elements = [], label} ) => {
+    const [items] = useState(() => [['Select'], elements])
     return (
         <div>
             <Label text={label} />

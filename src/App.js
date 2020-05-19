@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import './App.css'
-import AccInfo from './AccInfo'
+import AccInfo from './components/AccInfo'
+import UserInfo from './components/UserInfo'
 
 const App = () => {
   return (
@@ -12,6 +12,7 @@ const App = () => {
         <a href="#">Add Account</a>
         <a href="#">Remove Account</a>
         <a>Replace this with Bootstrap React Navbar</a>
+        <UserInfo />
       </nav>
       <AccInfo />
     </div>

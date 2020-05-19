@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import SelectList from './SelectList'
 
 const Account = ({currentUser}) => {
@@ -10,8 +9,7 @@ const Account = ({currentUser}) => {
     return (
         <div>
             <h1>Current Bank Account</h1>
-            {console.log(currentUser.props)}
-            <SelectList elements={currentUser.bankAccs} onChange={() => handleOnChange()}/>
+            <SelectList elements onChange={() => handleOnChange()}/>
             <div>Account Name</div>
             <div>Balance:</div>
             <div>Currency:</div>
@@ -21,19 +19,4 @@ const Account = ({currentUser}) => {
     )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user
-  }
-}
-
-// const mapDispachToProps = () => {
-//   return {
-//     transferFunds,
-//     depositFunds,
-//     createAccount,
-//     deleteAccount
-//   }
-// }
-
-export default connect(mapStateToProps)(Account)
+export default Account
