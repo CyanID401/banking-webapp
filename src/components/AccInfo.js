@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Account from './Account'
 import AccTransactions from './AccTransactions'
 import AccOperations from './AccOperations'
-import { fetchUserData } from '../app/actions/actionCreators'
+import { fetchUserData } from '../app/reducers/userReducer'
 
 const AccInfo = ({fetchUserData, user}) => {
     useEffect(() => {

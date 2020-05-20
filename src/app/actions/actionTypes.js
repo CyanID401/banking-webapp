@@ -1,7 +1,0 @@
-export const TRANSFER_FUNDS = 'TRANSFER_FUNDS'
-export const DEPOSIT_FUNDS = 'DEPOSIT_FUNDS'
-export const CREATE_ACC = 'CREATE_ACC'
-export const DELETE_ACC = 'DELETE_ACC'
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
-export const INITIALIZE_STATE = 'INITIALIZE_STATE'

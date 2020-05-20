@@ -1,4 +1,25 @@
-import * as actions from '../actions/actionTypes'
+import { instance } from '../../API'
+
+// actions
+
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const INITIALIZE_STATE = 'INITIALIZE_STATE'
+
+// action creators
+
+export const fetchUserData = (id = 0) => dispatch => { 
+    instance.get(`/users/${id}`)
+    .then((res) => {
+        let data = { ...res.data }
+        dispatch({ type: INITIALIZE_STATE, data, isDataInitialized: true });
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+}
+
+// reducer
 
 let initialState = {
     data: {}, 
@@ -7,13 +28,12 @@ let initialState = {
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.LOGIN:
+        case LOGIN:
             return state
-        case actions.LOGOUT:
+        case LOGOUT:
             return state
-        case actions.INITIALIZE_STATE:
-            console.log('Initializating state from mock API')
-            console.log(action.data)
+        case INITIALIZE_STATE:
+            console.log('Initializating state from mock API...')
             return {
                 ...state,
                 data: action.data,
@@ -22,6 +42,12 @@ const userReducer = (state = initialState, action) => {
         default:
             return state
     }
+}
+
+// selectors
+
+export const getUser = (state) => {
+    return state.user.data
 }
 
 export const getUserFName = (state) => {
