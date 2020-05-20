@@ -24,5 +24,13 @@ const userReducer = (state = initialState, action) => {
     }
 }
 
+export const getUserFName = (state) => {
+    return state.user.data.firstName
+}
+
+export const getUserLName = (state) => {
+    return state.user.data.lastName
+}
+
 export default userReducer
 
