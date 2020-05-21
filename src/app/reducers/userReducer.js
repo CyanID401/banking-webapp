@@ -2,20 +2,20 @@ import { instance } from '../../API'
 
 // actions
 
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
-export const INITIALIZE_STATE = 'INITIALIZE_STATE'
+const LOGIN = 'LOGIN'
+const LOGOUT = 'LOGOUT'
+const INITIALIZE_STATE = 'INITIALIZE_STATE'
 
 // action creators
 
-export const fetchUserData = (id = 0) => dispatch => { 
-    instance.get(`/users/${id}`)
+export const fetchUserData = (id = 0) => (dispatch) => { 
+    return instance.get(`/users/${id}`)
     .then((res) => {
         let data = { ...res.data }
-        dispatch({ type: INITIALIZE_STATE, data, isDataInitialized: true });
+        dispatch({ type: INITIALIZE_STATE, data, isDataInitialized: true })
     })
     .catch((error) => {
-        console.log(error);
+        console.log(error)
     })
 }
 
@@ -45,6 +45,10 @@ const userReducer = (state = initialState, action) => {
 }
 
 // selectors
+
+export const getIsUserLoaded = (state) => {
+    return state.user.isDataLoaded
+}
 
 export const getUser = (state) => {
     return state.user.data

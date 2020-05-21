@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import SelectList from './SelectList'
+import AccTransactions from './AccTransactions'
 
-const Account = ({currentUser}) => {
-    const handleOnChange = () => {
 
-    }
-
+const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
+    useEffect(() => {
+        setIndex(currentAcc)
+    }, [currentAcc])
+    const [index, setIndex] = useState(accounts[0].id)
     return (
-        <div>
+        <>
             <h1>Current Bank Account</h1>
-            <SelectList elements onChange={() => handleOnChange()}/>
-            <div>Account Name</div>
-            <div>Balance:</div>
-            <div>Currency:</div>
-            <div>IBAN:</div>
+            <SelectList 
+                elements={accounts.map(item => 
+                    ({id: item.id, name: item.name}))}
+                setSelected={setCurrentAcc} 
+            />
+            <div>Balance: {accounts[index].balance}</div>
+            <div>Currency: {accounts[index].currency}</div>
+            <div>IBAN: {accounts[index].iban}</div>
             <a href="#">Details</a>
-        </div>
+            <AccTransactions />
+        </>
     )
 }
 

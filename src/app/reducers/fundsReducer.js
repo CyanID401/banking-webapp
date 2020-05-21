@@ -1,7 +1,7 @@
 // actions
 
-export const TRANSFER_FUNDS = 'TRANSFER_FUNDS'
-export const DEPOSIT_FUNDS = 'DEPOSIT_FUNDS'
+const TRANSFER_FUNDS = 'TRANSFER_FUNDS'
+const DEPOSIT_FUNDS = 'DEPOSIT_FUNDS'
 
 // action creators
 
