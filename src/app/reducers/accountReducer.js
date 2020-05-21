@@ -34,14 +34,12 @@ let initialState = {
 }
 
 const accountReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case CREATE_ACC:
             return //todo
         case DELETE_ACC:
             return //todo
         case SET_CURRENT_ACC:
-            console.log(action)
             return {
                 ...state,
                 currentAccount: action.payload

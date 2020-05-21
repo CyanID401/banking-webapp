@@ -21,18 +21,21 @@ const fakeData = {
             currency: 'BGN',
             transactions: [
                 {
+                    id: 0,
                     date: '1.1.2020',
                     reason: 'Salary',
                     amount: '666',
                     type: 'deposit',
                 },
                 {
+                    id: 1,
                     date: '1.1.2020',
                     reason: 'Groceries',
                     amount: '30.23',
                     type: 'withdraw',
                 },
                 {
+                    id: 2,
                     date: '13.2.2020',
                     reason: 'Rent',
                     amount: '333',
@@ -48,18 +51,21 @@ const fakeData = {
             currency: 'BGN',
             transactions: [
                 {
+                    id: 0,
                     date: '5.3.2020',
                     reason: 'Deposit',
                     amount: '600',
                     type: 'deposit',
                 },
                 {
+                    id: 1,
                     date: '6.4.2020',
                     reason: 'Deposit',
                     amount: '300',
                     type: 'deposit',
                 },
                 {
+                    id: 2,
                     date: '4.5.2020',
                     reason: 'Deposit',
                     amount: '300.00',
@@ -75,18 +81,21 @@ const fakeData = {
             currency: 'EUR',
             transactions: [
                 {
+                    id: 0,
                     date: '1.1.2020',
                     reason: 'Traveling expenses',
                     amount: '400',
                     type: 'withdraw',
                 },
                 {
+                    id: 1,
                     date: '2.1.2020',
                     reason: 'Work dinner',
                     amount: '100',
                     type: 'withdraw',
                 },
                 {
+                    id: 2,
                     date: '3.2.2020',
                     reason: 'Consumatives',
                     amount: '550.30',

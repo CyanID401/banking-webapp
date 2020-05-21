@@ -3,6 +3,7 @@ import Label from './Label'
 
 const SelectList = ( {elements, setSelected, label} ) => {
     const [items, setItems] = useState([])
+    
     useEffect(() => {
         setItems(elements)
     }, [elements])

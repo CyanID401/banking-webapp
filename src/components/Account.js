@@ -4,10 +4,11 @@ import AccTransactions from './AccTransactions'
 
 
 const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
+    const [index, setIndex] = useState(accounts[0].id)
+
     useEffect(() => {
         setIndex(currentAcc)
     }, [currentAcc])
-    const [index, setIndex] = useState(accounts[0].id)
     return (
         <>
             <h1>Current Bank Account</h1>
@@ -20,7 +21,9 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
             <div>Currency: {accounts[index].currency}</div>
             <div>IBAN: {accounts[index].iban}</div>
             <a href="#">Details</a>
-            <AccTransactions />
+            <AccTransactions 
+                transactions={accounts[index].transactions}
+            />
         </>
     )
 }
