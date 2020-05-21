@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Account from './Account'
 import AccOperations from './AccOperations'
+import Loading from './Loading'
 import { fetchUserData, getUser, getIsUserLoaded } from '../app/reducers/userReducer'
 import { getCurrentAccount, setCurrentAccount } from '../app/reducers/accountReducer'
 
@@ -20,7 +21,7 @@ const AccInfo = ({ fetchUserData, user, currentAcc, setCurrentAcc, isLoaded }) =
                     />
                     <AccOperations/>
                 </> : 
-            <div>Loading...</div>}
+            <Loading /> }
         </>
     )
 }
