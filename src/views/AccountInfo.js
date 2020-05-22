@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import Loading from './Loading'
-import Account from './Account'
-import AccOperations from './AccOperations'
-import AccCreate from './AccCreate'
-import AccDelete from './AccDelete'
+import Loading from '../components/Loading'
+import Account from '../components/Account'
 import { fetchUserData, 
     getUser, getIsUserLoaded } from '../app/reducers/userReducer'
 
 import * as acc from '../app/reducers/accountReducer'
 
-const AccInfo = ({ fetchUserData, currentUser, isLoaded,
-    currentAcc, setCurrentAcc, createAcc, deleteAcc }) => {
+const AccountInfo = ({ fetchUserData, currentUser, isLoaded,
+    currentAcc, setCurrentAcc }) => {
     useEffect(() => {
         fetchUserData()
     }, [fetchUserData])
@@ -24,9 +21,6 @@ const AccInfo = ({ fetchUserData, currentUser, isLoaded,
                         currentAcc={currentAcc}
                         setCurrentAcc={setCurrentAcc}
                     />
-                    <AccOperations />
-                    <AccCreate create={createAcc}/>
-                    <AccDelete delete={deleteAcc}/>
                 </> : 
             <Loading /> }
         </>
@@ -43,9 +37,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     fetchUserData,
-    setCurrentAcc: acc.setCurrentAccount,
-    createAcc: acc.createAccount,
-    deleteAcc: acc.deleteAccount
+    setCurrentAcc: acc.setCurrentAccount
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccInfo)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo)

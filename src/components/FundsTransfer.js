@@ -5,7 +5,7 @@ import InputBox from './InputBox'
 import Button from './Button'
 import { transferFunds, depositFunds } from '../app/reducers/fundsReducer'
 
-const AccOperations = ({ transferFunds, depositFunds }) => {
+const FundsTransfer = ({ transferFunds, depositFunds }) => {
     const [state, setState] = useState({})
 
     const handleOnChange = (e) => {
@@ -49,17 +49,6 @@ const AccOperations = ({ transferFunds, depositFunds }) => {
                 <Button text={'Transfer'} />
             </form>
         </div>
-
-        <div>
-            <h2>Deposit Funds</h2>
-            <form>
-                <SelectList label={'From Account:'} />
-                <SelectList label={'To Account:'} />
-                <InputBox label={'Amount:'} placeholder={'0.0'}/>
-                <InputBox label={'Reason:'} />
-                <Button text={'Deposit'} />
-            </form>
-        </div>
         </>
     )
 }
@@ -69,4 +58,4 @@ const mapDispatchToProps = {
     depositFunds
 }
 
-export default connect(null, mapDispatchToProps)(AccOperations)
+export default connect(null, mapDispatchToProps)(FundsTransfer)
