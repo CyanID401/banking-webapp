@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import Loading from './Loading'
 import Account from './Account'
 import AccOperations from './AccOperations'
-import Loading from './Loading'
-import { fetchUserData, getUser, getIsUserLoaded } from '../app/reducers/userReducer'
-import { getCurrentAccount, setCurrentAccount } from '../app/reducers/accountReducer'
+import AccCreate from './AccCreate'
+import AccDelete from './AccDelete'
+import { fetchUserData, 
+    getUser, getIsUserLoaded } from '../app/reducers/userReducer'
 
-const AccInfo = ({ fetchUserData, user, currentAcc, setCurrentAcc, isLoaded }) => {
+import * as acc from '../app/reducers/accountReducer'
+
+const AccInfo = ({ fetchUserData, currentUser, isLoaded,
+    currentAcc, setCurrentAcc, createAcc, deleteAcc }) => {
     useEffect(() => {
         fetchUserData()
     }, [fetchUserData])
@@ -15,11 +20,13 @@ const AccInfo = ({ fetchUserData, user, currentAcc, setCurrentAcc, isLoaded }) =
             { isLoaded ?
                 <>
                     <Account 
-                        accounts={user.bankAccs}
+                        accounts={currentUser.bankAccs}
                         currentAcc={currentAcc}
                         setCurrentAcc={setCurrentAcc}
                     />
-                    <AccOperations/>
+                    <AccOperations />
+                    <AccCreate create={createAcc}/>
+                    <AccDelete delete={deleteAcc}/>
                 </> : 
             <Loading /> }
         </>
@@ -28,15 +35,17 @@ const AccInfo = ({ fetchUserData, user, currentAcc, setCurrentAcc, isLoaded }) =
 
 const mapStateToProps = (state) => {
     return {
-        user: getUser(state),
-        currentAcc: getCurrentAccount(state),
+        currentUser: getUser(state),
+        currentAcc: acc.getCurrentAccount(state),
         isLoaded: getIsUserLoaded(state)
     }
 }
 
 const mapDispatchToProps = {
     fetchUserData,
-    setCurrentAcc: setCurrentAccount
+    setCurrentAcc: acc.setCurrentAccount,
+    createAcc: acc.createAccount,
+    deleteAcc: acc.deleteAccount
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccInfo)
