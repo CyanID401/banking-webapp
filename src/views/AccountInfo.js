@@ -3,26 +3,27 @@ import { connect } from 'react-redux'
 import Loading from '../components/Loading'
 import Account from '../components/Account'
 import { fetchUserData, 
-    getUser, getIsUserLoaded } from '../app/reducers/userReducer'
+    getUser, getUserDataStatus } from '../app/reducers/userReducer'
 
 import * as acc from '../app/reducers/accountReducer'
 
-const AccountInfo = ({ fetchUserData, currentUser, isLoaded,
+const AccountInfo = ({ fetchUserData, currentUser, dataStatus,
     currentAcc, setCurrentAcc }) => {
     useEffect(() => {
         fetchUserData()
-    }, [fetchUserData])
+    }, [])
     return (
         <>
-            { isLoaded ?
-                <>
+            { dataStatus.isLoading ?
+                <Loading /> :
+                dataStatus.isError ?
+                    <div>Error Loading Data</div> :
                     <Account 
                         accounts={currentUser.bankAccs}
                         currentAcc={currentAcc}
                         setCurrentAcc={setCurrentAcc}
-                    />
-                </> : 
-            <Loading /> }
+                    />  
+            }
         </>
     )
 }
@@ -30,8 +31,8 @@ const AccountInfo = ({ fetchUserData, currentUser, isLoaded,
 const mapStateToProps = (state) => {
     return {
         currentUser: getUser(state),
-        currentAcc: acc.getCurrentAccount(state),
-        isLoaded: getIsUserLoaded(state)
+        dataStatus: getUserDataStatus(state),
+        currentAcc: acc.getCurrentAccount(state)
     }
 }
 

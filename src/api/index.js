@@ -1,13 +1,17 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-const endpoint = '/users/0'
 export const instance = axios.create({
     baseURL: '/api',
     timeout: 1000,
 });
 
-const mock = new MockAdapter(instance)
+const user = '/user/0'
+const accounts = '/accounts'
+const transactions = '/transactions'
+
+
+const mock = new MockAdapter(instance, { delayResponse: 500 })
 const fakeData = {
     id: 0,
     firstName: 'Ivan',
@@ -106,8 +110,18 @@ const fakeData = {
     ]
 }
 
-mock.onGet(endpoint).reply(200, 
+mock.onGet(user).reply(200, 
     fakeData
 )
 
+mock.onPost(accounts).reply(201, {
+    message: 'Successfully added a new account.'
+})
 
+mock.onDelete(accounts).reply(200, {
+    message: 'Successfully delete a account.'
+})
+
+mock.onPost(transactions).reply(201, {
+    message: 'Successfully added a transaction.'
+})

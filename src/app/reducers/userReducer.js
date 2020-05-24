@@ -1,21 +1,23 @@
-import { instance } from '../../API'
+import { instance } from '../../api/index'
 
 // actions
 
 const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
-const INITIALIZE_STATE = 'INITIALIZE_STATE'
+const GET_USER_REQUEST = 'GET_USER_REQUEST'
+const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
+const GET_USER_ERROR = 'GET_USER_ERROR'
 
 // action creators
 
-export const fetchUserData = (id = 0) => (dispatch) => { 
-    return instance.get(`/users/${id}`)
-    .then((res) => {
-        let data = { ...res.data }
-        dispatch({ type: INITIALIZE_STATE, data, isDataInitialized: true })
+export const fetchUserData = (id = 0) => (dispatch) => {
+    dispatch({ type: GET_USER_REQUEST })
+    return instance.get(`/user/${id}`)
+    .then(({ data }) => {
+        dispatch({ type: GET_USER_SUCCESS, data, isLoading: false })
     })
     .catch((error) => {
-        console.log(error)
+        dispatch({ type: GET_USER_ERROR, error, isLoading: false, isError: true })
     })
 }
 
@@ -23,7 +25,9 @@ export const fetchUserData = (id = 0) => (dispatch) => {
 
 let initialState = {
     data: {}, 
-    isDataLoaded: false
+    isLoading: true,
+    isError: false,
+    errorMsg: null
 }
 
 const userReducer = (state = initialState, action) => {
@@ -32,12 +36,19 @@ const userReducer = (state = initialState, action) => {
             return state
         case LOGOUT:
             return state
-        case INITIALIZE_STATE:
+        case GET_USER_SUCCESS:
             console.log('Initializating state from mock API...')
             return {
                 ...state,
                 data: action.data,
-                isDataLoaded: true
+                isLoading: action.isLoading
+            }
+        case GET_USER_ERROR:
+            return {
+                ...state,
+                isLoading: action.isLoading,
+                isError: action.isError,
+                errorMsg: action.error
             }
         default:
             return state
@@ -46,8 +57,11 @@ const userReducer = (state = initialState, action) => {
 
 // selectors
 
-export const getIsUserLoaded = (state) => {
-    return state.user.isDataLoaded
+export const getUserDataStatus = (state) => {
+    return {
+        isLoading: state.user.isLoading,
+        isError: state.user.isError
+    }
 }
 
 export const getUser = (state) => {
