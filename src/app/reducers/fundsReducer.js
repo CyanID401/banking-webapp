@@ -71,5 +71,11 @@ const fundsReducer = (state = initialState, action) => {
     }
 }
 
+// selectors
+
+export const getTransactionStatus = (state) => {
+    return state.funds.processingTransaction
+}
+
 export default fundsReducer
 

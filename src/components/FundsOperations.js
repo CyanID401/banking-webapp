@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import SelectList from './SelectList'
 import InputBox from './InputBox'
 import Button from './Button'
-import { transferFunds, depositFunds } from '../app/reducers/fundsReducer'
+import { transferFunds, depositFunds, getTransactionStatus } from '../app/reducers/fundsReducer'
 import { getUserAccounts } from '../app/reducers/userReducer'
 
-const FundsTransfer = ({ type, transferFunds, depositFunds, accounts }) => {
+const FundsTransfer = ({ type, transferFunds, depositFunds, isProcessing, accounts }) => {
     const [state, setState] = useState({})
 
     const handleOnChange = (e) => {
@@ -53,7 +53,7 @@ const FundsTransfer = ({ type, transferFunds, depositFunds, accounts }) => {
                         onChange={(e) => handleOnChange(e)}
                         name={'reason'}
                     />
-                    <Button text={'Transfer'} />
+                    <Button text={'Transfer'} isLoading={isProcessing} />
                 </form>
             </div> 
             :
@@ -81,7 +81,7 @@ const FundsTransfer = ({ type, transferFunds, depositFunds, accounts }) => {
                         onChange={(e) => handleOnChange(e)}
                         name={'reason'}
                     />
-                    <Button text={'Deposit'} />
+                    <Button text={'Deposit'} isLoading={isProcessing} />
                 </form>
             </div> }
         </>
@@ -90,7 +90,8 @@ const FundsTransfer = ({ type, transferFunds, depositFunds, accounts }) => {
 
 const mapStateToProps = (state) => {
     return {
-        accounts: getUserAccounts(state)
+        accounts: getUserAccounts(state),
+        isProcessing: getTransactionStatus(state)
     }
 }
 
