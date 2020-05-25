@@ -1,23 +1,41 @@
+import { instance } from '../../api/index'
+
 // actions
 
-const CREATE_ACC = 'CREATE_ACC'
-const DELETE_ACC = 'DELETE_ACC'
+const CREATE_ACCOUNT_REQUEST = 'CREATE_ACCOUNT_REQUEST'
+const CREATE_ACCOUNT_SUCCESS = 'CREATE_ACCOUNT_SUCCESS'
+const CREATE_ACCOUNT_ERROR = 'CREATE_ACCOUNT_ERROR'
+
+const DELETE_ACCOUNT_REQUEST = 'DELETE_ACCOUNT_REQUEST'
+const DELETE_ACCOUNT_SUCCESS = 'DELETE_ACCOUNT_SUCCESS'
+const DELETE_ACCOUNT_ERROR = 'DELETE_ACCOUNT_ERROR'
+
 const SET_CURRENT_ACC = 'SET_CURRENT_ACC'
 
 // action creators
 
-export const createAccount = (data) => {
-    return {
-        type: CREATE_ACC, 
-        payload: data
-    }
+export const createAccount = () => (dispatch) => {
+    dispatch({ type: CREATE_ACCOUNT_REQUEST })
+    return instance.post('/accounts')
+        .then(({ data }) => {
+            dispatch({ type: CREATE_ACCOUNT_SUCCESS, data })
+            dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
+        })
+        .catch((error) => {
+            dispatch({ type: CREATE_ACCOUNT_ERROR, error })
+        })
 }
 
-export const deleteAccount = (data) => {
-    return {
-        type: DELETE_ACC, 
-        payload: data
-    }
+export const deleteAccount = () => (dispatch) => {
+    dispatch({ type: DELETE_ACCOUNT_REQUEST })
+    return instance.post('/accounts')
+        .then(({ data }) => {
+            dispatch({ type: DELETE_ACCOUNT_SUCCESS, data })
+            dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
+        })
+        .catch((error) => {
+            dispatch({ type: DELETE_ACCOUNT_ERROR, error })
+        })
 }
 
 export const setCurrentAccount = (data) => {
@@ -30,19 +48,37 @@ export const setCurrentAccount = (data) => {
 // reducer
 
 let initialState = {
-    currentAccount: 0
+    currencies: [
+        {id: 0, type: 'BGN'},
+        {id: 1, type: 'EUR'},
+        {id: 2, type: 'USD'}
+    ],
+    currentAccount: 0,
+    processingRequest: false,
+    isError: false,
+    errorMsg: null
 }
 
 const accountReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CREATE_ACC:
-            return //todo
-        case DELETE_ACC:
-            return //todo
-        case SET_CURRENT_ACC:
+        case CREATE_ACCOUNT_REQUEST:
+        case DELETE_ACCOUNT_REQUEST:
             return {
                 ...state,
-                currentAccount: action.payload
+                processingRequest: true
+            }
+        case CREATE_ACCOUNT_SUCCESS:
+        case DELETE_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                processingRequest: false
+            }
+        case CREATE_ACCOUNT_ERROR:
+        case DELETE_ACCOUNT_ERROR:
+            return {
+                ...state,
+                processingRequest: false,
+                isError: true
             }
         default:
             return state
@@ -53,6 +89,14 @@ const accountReducer = (state = initialState, action) => {
 
 export const getCurrentAccount = (state) => {
     return state.account.currentAccount
+}
+
+export const getRequestStatus = (state) => {
+    return state.account.processingRequest
+}
+
+export const getCurrencies = (state) => {
+    return state.account.currencies
 }
 
 export default accountReducer
