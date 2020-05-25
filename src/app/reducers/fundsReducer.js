@@ -10,8 +10,6 @@ const DEPOSIT_FUNDS_REQUEST = 'DEPOSIT_FUNDS_REQUEST'
 const DEPOSIT_FUNDS_SUCCESS = 'DEPOSIT_FUNDS_SUCCESS'
 const DEPOSIT_FUNDS_ERROR = 'DEPOSIT_FUNDS_ERROR'
 
-const UPDATE_ACCOUNT_INFO = 'UPDATE_ACCOUNT_INFO'
-
 // action creators
 
 export const transferFunds = () => (dispatch) => {
@@ -19,7 +17,7 @@ export const transferFunds = () => (dispatch) => {
     return instance.post('/transactions')
         .then(({ data }) => {
             dispatch({ type: TRANSFER_FUNDS_SUCCESS, data })
-            dispatch({ type: UPDATE_ACCOUNT_INFO, data })
+            dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
         })
         .catch((error) => {
             dispatch({ type: TRANSFER_FUNDS_ERROR, error })
@@ -31,7 +29,7 @@ export const depositFunds = () => (dispatch) => {
     return instance.post('/transactions')
     .then(({ data }) => {
         dispatch({ type: DEPOSIT_FUNDS_SUCCESS, data })
-        dispatch({ type: UPDATE_ACCOUNT_INFO, data })
+        dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
     })
     .catch((error) => {
         dispatch({ type: DEPOSIT_FUNDS_ERROR, error })
