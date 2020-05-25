@@ -64,8 +64,8 @@ export const getUserDataStatus = (state) => {
     }
 }
 
-export const getUser = (state) => {
-    return state.user.data
+export const getUserAccounts = (state) => {
+    return state.user.data.bankAccs
 }
 
 export const getUserFName = (state) => {

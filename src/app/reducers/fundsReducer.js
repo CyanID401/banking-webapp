@@ -2,8 +2,6 @@
 
 const TRANSFER_FUNDS = 'TRANSFER_FUNDS'
 const DEPOSIT_FUNDS = 'DEPOSIT_FUNDS'
-const SET_FROM_ACC = 'SET_FROM_ACC'
-const SET_TO_ACC = 'SET_TO_ACC'
 
 // action creators
 
@@ -39,14 +37,6 @@ const fundsReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-        case SET_FROM_ACC:
-            return {
-                ...state
-            }
-        case SET_TO_ACC:
-            return {
-                ...state
-            }    
         default:
             return state
     }

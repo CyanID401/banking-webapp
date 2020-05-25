@@ -1,12 +1,11 @@
 import React from 'react'
-import FundsTransfer from '../components/FundsTransfer'
-import FundsDeposit from '../components/FundsDeposit'
+import FundsOperations from '../components/FundsOperations'
 
 const FundsManager = () => {
     return (
         <div>
-            <FundsTransfer />
-            <FundsDeposit />
+            <FundsOperations type="transfer" />
+            <FundsOperations type="deposit" />
         </div>
     )
 }
