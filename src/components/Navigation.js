@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import UserInfo from './UserInfo'
 
 const Navigation = () => {
     return (
@@ -16,6 +17,9 @@ const Navigation = () => {
                 </li>
                 <li>
                     <Link to="/funds">Manage Funds</Link>
+                </li>
+                <li>
+                    <UserInfo />
                 </li>
             </ul>
       </nav>
