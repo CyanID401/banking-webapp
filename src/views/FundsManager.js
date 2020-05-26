@@ -1,13 +1,39 @@
 import React from 'react'
-import FundsOperations from '../components/FundsOperations'
+import { connect } from 'react-redux'
+import { getUserAccounts } from '../app/reducers/userReducer'
+import { transferFunds, depositFunds,
+     getTransactionStatus } from '../app/reducers/fundsReducer'
+import FundsTransfer from '../components/FundsTransfer'
+import FundsDeposit from '../components/FundsDeposit'
 
-const FundsManager = () => {
+const FundsManager = ({ accounts, transferFunds, depositFunds, isProcessing  }) => {
+
     return (
-        <div>
-            <FundsOperations type="transfer" />
-            <FundsOperations type="deposit" />
-        </div>
+        <>
+            <FundsTransfer
+                accounts={accounts}
+                isLoading={isProcessing}
+                transferFunds={transferFunds}
+            />
+            <FundsDeposit 
+                accounts={accounts}
+                isLoading={isProcessing}
+                depositFunds={depositFunds}
+            />
+        </>
     )
 }
 
-export default FundsManager
+const mapStateToProps = (state) => {
+    return {
+        accounts: getUserAccounts(state),
+        isProcessing: getTransactionStatus(state)
+    }
+}
+
+const mapDispatchToProps = {
+    transferFunds,
+    depositFunds
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FundsManager)
