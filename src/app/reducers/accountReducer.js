@@ -80,6 +80,11 @@ const accountReducer = (state = initialState, action) => {
                 processingRequest: false,
                 isError: true
             }
+        case SET_CURRENT_ACC:
+            return {
+                ...state,
+                currentAccount: action.payload
+            }
         default:
             return state
     }
