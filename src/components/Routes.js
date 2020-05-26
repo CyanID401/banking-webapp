@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route } from "react-router-dom"
-import Navigation from './Navigation'
 import Home from '../views/Home'
 import AccountInfo from '../views/AccountInfo'
 import AccountManager from '../views/AccountManager'
@@ -11,13 +10,12 @@ import Loading from './Loading'
 import { fetchUserData, 
     getUserDataStatus } from '../app/reducers/userReducer'
 
-function Routes({ fetchUserData, dataStatus }) {
+const Routes = ({ fetchUserData, dataStatus }) =>  {
     useEffect(() => {
         fetchUserData()
     }, []) 
     return (
         <>
-            <Navigation />
             { dataStatus.isLoading ?
                 <Loading /> :
                 dataStatus.isError ?
