@@ -2,9 +2,15 @@ import React, { useState } from 'react'
 import SelectList from './SelectList'
 import InputBox from './InputBox'
 import Button from './Button'
+import date from '../scripts/date'
+import generateID from '../scripts/id-generator'
 
 const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
-    const [state, setState] = useState({})
+    const [state, setState] = useState({
+        id: generateID(),
+        date: date(),
+        type: 'withdraw'
+    })
 
     const handleOnChange = (e) => {
         setState({
@@ -25,7 +31,9 @@ const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
             <SelectList 
                 label={'From Account:'}
                 onChange={e =>handleOnChange(e)}
-                elements={accounts} />
+                elements={accounts} 
+                name={'fromAccount'}
+            />
             <InputBox 
                 label={'Recipient Name:'}
                 onChange={(e) => handleOnChange(e)}

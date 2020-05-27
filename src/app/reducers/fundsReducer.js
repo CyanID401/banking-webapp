@@ -12,24 +12,24 @@ const DEPOSIT_FUNDS_ERROR = 'DEPOSIT_FUNDS_ERROR'
 
 // action creators
 
-export const transferFunds = () => (dispatch) => {
-    dispatch({ type: TRANSFER_FUNDS_REQUEST })
+export const transferFunds = (formData) => (dispatch) => {
+    dispatch({ type: TRANSFER_FUNDS_REQUEST, data: formData })
     return instance.post('/transactions')
         .then(({ data }) => {
             dispatch({ type: TRANSFER_FUNDS_SUCCESS, data })
-            dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
+            dispatch({ type: 'UPDATE_ACCOUNT_TRANSFER', data: formData })
         })
         .catch((error) => {
             dispatch({ type: TRANSFER_FUNDS_ERROR, error })
         })
 }
 
-export const depositFunds = () => (dispatch) => {
-    dispatch({ type: DEPOSIT_FUNDS_REQUEST })
+export const depositFunds = (formData) => (dispatch) => {
+    dispatch({ type: DEPOSIT_FUNDS_REQUEST, data: formData })
     return instance.post('/transactions')
     .then(({ data }) => {
         dispatch({ type: DEPOSIT_FUNDS_SUCCESS, data })
-        dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
+        dispatch({ type: 'UPDATE_ACCOUNT_DEPOSIT', data: formData })
     })
     .catch((error) => {
         dispatch({ type: DEPOSIT_FUNDS_ERROR, error })
@@ -62,7 +62,8 @@ const fundsReducer = (state = initialState, action) => {
         case DEPOSIT_FUNDS_ERROR:
             return {
                 ...state,
-                isError: true
+                isError: true,
+                errorMsg: action.error
             }
         default:
             return state

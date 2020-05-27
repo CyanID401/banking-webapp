@@ -2,9 +2,15 @@ import React, { useState } from 'react'
 import SelectList from './SelectList'
 import InputBox from './InputBox'
 import Button from './Button'
+import date from '../scripts/date'
+import generateID from '../scripts/id-generator'
 
 const FundsDeposit = ({ accounts, isLoading, depositFunds  }) => {
-    const [state, setState] = useState({})
+    const [state, setState] = useState({
+        id: generateID(),
+        date: date(),
+        type: 'deposit'
+    })
 
     const handleOnChange = (e) => {
         setState({
@@ -25,12 +31,14 @@ const FundsDeposit = ({ accounts, isLoading, depositFunds  }) => {
             <SelectList 
                 label={'From Account:'}
                 onChange={e =>handleOnChange(e)}
-                elements={accounts} 
+                elements={accounts}
+                name={'fromAccount'}
             />
             <SelectList 
                 label={'To Account:'}
                 onChange={e =>handleOnChange(e)}
                 elements={accounts} 
+                name={'toAccount'}
             />
             <InputBox 
                 label={'Amount:'} 

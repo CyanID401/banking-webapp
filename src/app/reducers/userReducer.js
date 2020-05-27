@@ -1,4 +1,5 @@
 import { instance } from '../../api/index'
+import produce from 'immer'
 
 // actions
 
@@ -8,48 +9,94 @@ const GET_USER_REQUEST = 'GET_USER_REQUEST'
 const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 const GET_USER_ERROR = 'GET_USER_ERROR'
 
+const UPDATE_ACCOUNT_DEPOSIT = 'UPDATE_ACCOUNT_DEPOSIT'
+const UPDATE_ACCOUNT_TRANSFER = 'UPDATE_ACCOUNT_TRANSFER'
+
 // action creators
 
 export const fetchUserData = (id = 0) => (dispatch) => {
     dispatch({ type: GET_USER_REQUEST })
     return instance.get(`/user/${id}`)
     .then(({ data }) => {
-        dispatch({ type: GET_USER_SUCCESS, data, isLoading: false })
+        dispatch({ type: GET_USER_SUCCESS, data })
     })
     .catch((error) => {
-        dispatch({ type: GET_USER_ERROR, error, isLoading: false, isError: true })
+        dispatch({ type: GET_USER_ERROR, error })
     })
 }
 
 // reducer
 
 let initialState = {
-    data: {}, 
+    data: {
+        bankAccs: [
+            {
+                balance: '',
+                transactions: []
+            }
+        ]
+    },
     isLoading: true,
     isError: false,
     errorMsg: null
 }
 
+const withdrawFromAccount = (state, data) => {
+    return produce(state, draft => { 
+        draft.data.bankAccs[data.fromAccount].balance = ((
+            parseFloat(draft.data.bankAccs[data.fromAccount].balance) - data.amount)
+            .toFixed(2))
+            .toString()
+        draft.data.bankAccs[data.fromAccount].transactions.push(data)
+
+    })
+}
+
+const depositToAccount = (state, data) => {
+    return produce(state, draft => { 
+        // from account
+        let history = {
+            id: data.id, 
+            date: data.date,
+            reason: data.reason,
+            amount: data.amount,
+            type: 'withdraw'
+        }
+        draft.data.bankAccs[data.fromAccount].balance = ((
+            parseFloat(draft.data.bankAccs[data.fromAccount].balance) - data.amount)
+            .toFixed(2))
+            .toString()
+        draft.data.bankAccs[data.fromAccount].transactions.push(history)
+
+        // to account
+        draft.data.bankAccs[data.toAccount].balance = ((
+            parseFloat(draft.data.bankAccs[data.toAccount].balance) - data.amount)
+            .toFixed(2))
+            .toString()
+        draft.data.bankAccs[data.toAccount].transactions.push(data)
+    })
+}
+
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOGIN:
-            return state
-        case LOGOUT:
-            return state
         case GET_USER_SUCCESS:
             console.log('Initializating state from mock API...')
             return {
                 ...state,
                 data: action.data,
-                isLoading: action.isLoading
+                isLoading: false
             }
         case GET_USER_ERROR:
             return {
                 ...state,
-                isLoading: action.isLoading,
-                isError: action.isError,
-                errorMsg: action.error
+                isLoading: false,
+                isError: true,
+                errorMsg: action.error,
             }
+        case UPDATE_ACCOUNT_TRANSFER:
+            return withdrawFromAccount(state, action.data)
+        case UPDATE_ACCOUNT_DEPOSIT:
+            return depositToAccount(state, action.data)
         default:
             return state
     }
