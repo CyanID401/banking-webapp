@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import SelectList from './SelectList'
 import AccTransactions from './AccTransactions'
+import { filterElementByID } from '../scripts/utilities'
 
 
 const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
-    const [index, setIndex] = useState(accounts[0].id)
+    const [state, setState] = useState({
+        balance: 0.0,
+        currency: '',
+        iban: '',
+        transactions: []
+    })
+    useEffect(() => {
+        setCurrentAcc(accounts[0].id)
+    }, [])
 
     useEffect(() => {
-        setIndex(currentAcc)
+        const data = 
+            filterElementByID(accounts, currentAcc)
+        setState({
+            ...state,
+            ...data[0]
+        })
     }, [currentAcc])
     return (
         <>
@@ -17,12 +31,12 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
                     ({id: item.id, name: item.name}))}
                 onChange={(e) => setCurrentAcc(e.target.value)}
             />
-            <div>Balance: {accounts[index].balance}</div>
-            <div>Currency: {accounts[index].currency}</div>
-            <div>IBAN: {accounts[index].iban}</div>
+            <div>Balance: {state.balance}</div>
+            <div>Currency: {state.currency}</div>
+            <div>IBAN: {state.iban}</div>
             <a href="#">Details</a>
             <AccTransactions 
-                transactions={accounts[index].transactions}
+                transactions={state.transactions}
             />
         </>
     )
