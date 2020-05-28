@@ -1,4 +1,3 @@
-
 const getDate = () => {
     let today = new Date()
     let day = today.getDate()

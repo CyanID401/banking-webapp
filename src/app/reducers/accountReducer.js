@@ -14,24 +14,24 @@ const SET_CURRENT_ACC = 'SET_CURRENT_ACC'
 
 // action creators
 
-export const createAccount = () => (dispatch) => {
+export const createAccount = (formData) => (dispatch) => {
     dispatch({ type: CREATE_ACCOUNT_REQUEST })
     return instance.post('/accounts')
         .then(({ data }) => {
             dispatch({ type: CREATE_ACCOUNT_SUCCESS, data })
-            dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
+            dispatch({ type: 'ADD_NEW_ACCOUNT', data: formData })
         })
         .catch((error) => {
             dispatch({ type: CREATE_ACCOUNT_ERROR, error })
         })
 }
 
-export const deleteAccount = () => (dispatch) => {
+export const deleteAccount = (formData) => (dispatch) => {
     dispatch({ type: DELETE_ACCOUNT_REQUEST })
     return instance.post('/accounts')
         .then(({ data }) => {
             dispatch({ type: DELETE_ACCOUNT_SUCCESS, data })
-            dispatch({ type: 'UPDATE_ACCOUNT_INFO', data })
+            dispatch({ type: 'REMOVE_ACCOUNT', data: formData })
         })
         .catch((error) => {
             dispatch({ type: DELETE_ACCOUNT_ERROR, error })

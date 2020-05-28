@@ -12,6 +12,9 @@ const GET_USER_ERROR = 'GET_USER_ERROR'
 const UPDATE_ACCOUNT_DEPOSIT = 'UPDATE_ACCOUNT_DEPOSIT'
 const UPDATE_ACCOUNT_TRANSFER = 'UPDATE_ACCOUNT_TRANSFER'
 
+const ADD_NEW_ACCOUNT = 'ADD_NEW_ACCOUNT'
+const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT'
+
 // action creators
 
 export const fetchUserData = (id = 0) => (dispatch) => {
@@ -97,6 +100,14 @@ const userReducer = (state = initialState, action) => {
             return withdrawFromAccount(state, action.data)
         case UPDATE_ACCOUNT_DEPOSIT:
             return depositToAccount(state, action.data)
+        case ADD_NEW_ACCOUNT:
+            return produce(state, draft => {
+                draft.data.bankAccs.push(action.data)
+            })
+        case REMOVE_ACCOUNT:
+            return produce(state, draft => {
+                draft.data.bankAccs.splice(action.data.accountID, 1)
+            })
         default:
             return state
     }

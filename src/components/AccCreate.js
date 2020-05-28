@@ -2,16 +2,32 @@ import React, { useState } from 'react'
 import SelectList from './SelectList'
 import InputBox from './InputBox'
 import Button from './Button'
+import generateID from '../scripts/id-generator'
 
 const AccCreate = ({ currencies, isLoading, createAccount }) => {
-    const [state, setState] = useState([])
-    console.log(currencies)
-    const handleOnChange = (e) => {
+    const [state, setState] = useState(
+        {
+            id: generateID(),
+            balance: '0.0',
+            iban: 'BG58RZBB91555087474816',
+            transactions: []
+        }
+    )
+
+    const onChangeName = (e) => {
         setState({
             ...state,
-            [e.target.name]: e.target.value
+            name: e.target.value
         })
-        console.log(state)
+    }
+
+    const onChangeCurrency = (e) => {
+        let index = e.target.value
+        setState({
+            ...state,
+            currency: e.target[index].text
+            
+        })
     }
 
     const handleOnSubmit = (e) => {
@@ -25,12 +41,14 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
             <form onSubmit={(e) => handleOnSubmit(e)}>
                 <InputBox 
                     label={'Account Name:'} 
-                    onChange={(e) => handleOnChange(e)}
+                    onChange={(e) => onChangeName(e)}
+                    name={'name'}
                 />
                 <SelectList 
                     label={'Currency:'} 
                     elements={currencies} 
-                    onChange={(e) => handleOnChange(e)}
+                    onChange={(e) => onChangeCurrency(e)}
+                    name={'currency'}
                 />
                 <Button text={'Create'} isLoading={isLoading}/>
             </form>

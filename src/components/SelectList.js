@@ -10,8 +10,8 @@ const SelectList = ({ elements, onChange, label, name }) => {
     return (
         <div>
             <Label text={label} />
-            <select onChange={onChange || null} name={name || null } >
-                {items && items.map((item, index) =>
+            <select onChange={onChange || null} name={name || null} >
+                {items.map((item, index) =>
                     <option key={index} value={item.id}>{item.name}</option>
                 )}
             </select>

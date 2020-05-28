@@ -3,7 +3,7 @@ import Button from './Button'
 import SelectList from './SelectList'
 
 const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
-    const [state, setState] = useState([])
+    const [state, setState] = useState({})
     const handleOnChange = (e) => {
         setState({
             ...state,
@@ -23,6 +23,7 @@ const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
                     label={'Select bank account'}
                     onChange={(e) => handleOnChange(e)}
                     elements={accounts}
+                    name={'accountID'}
                 />
                 <Button text={'Delete'} isLoading={isLoading} />
             </form>

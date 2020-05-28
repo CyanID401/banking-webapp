@@ -1,4 +1,4 @@
-export const filterElement = (arr, id) => {
+export const filterElementByID = (arr, id) => {
     return arr.filter((item) => {
         return item.id === id
     })
