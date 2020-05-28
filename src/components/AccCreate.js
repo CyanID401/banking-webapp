@@ -5,11 +5,13 @@ import Button from './Button'
 
 const AccCreate = ({ currencies, isLoading, createAccount }) => {
     const [state, setState] = useState([])
+    console.log(currencies)
     const handleOnChange = (e) => {
         setState({
             ...state,
             [e.target.name]: e.target.value
         })
+        console.log(state)
     }
 
     const handleOnSubmit = (e) => {

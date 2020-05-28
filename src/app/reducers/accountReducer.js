@@ -49,9 +49,9 @@ export const setCurrentAccount = (data) => {
 
 let initialState = {
     currencies: [
-        {id: 0, type: 'BGN'},
-        {id: 1, type: 'EUR'},
-        {id: 2, type: 'USD'}
+        {id: 0, name: 'BGN'},
+        {id: 1, name: 'EUR'},
+        {id: 2, name: 'USD'}
     ],
     currentAccount: 0,
     processingRequest: false,
