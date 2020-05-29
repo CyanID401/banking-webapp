@@ -1,10 +1,13 @@
 import React from 'react'
 
-const Label = ( {text} ) => {
+const Label = ({ className, text }) => {
     return (
         <>
             {text !== undefined &&
-                <label>{text}</label>}
+                <label className={className || null}>
+                    {text}
+                </label>
+            }
         </>
     )
 }

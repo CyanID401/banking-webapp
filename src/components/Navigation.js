@@ -5,12 +5,12 @@ import UserInfo from './UserInfo'
 
 const Navigation = () => {
     return (
-        <Navbar collapseOnSelect expand="lg">
+        <Navbar bg="light" expand="lg">
             <Container>
                 <Navbar.Brand as={Link} to="/">Banking App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto justify-content-center" >
+                    <Nav className="mr-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/account">Account Information</Nav.Link>
                         <Nav.Link as={Link} to="/accounts">Manage Accounts</Nav.Link>

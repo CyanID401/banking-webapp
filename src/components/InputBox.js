@@ -1,11 +1,13 @@
 import React from 'react'
 import Label from './Label'
 
-const InputBox = ( {label, onChange, type, name, placeholder} ) => {
+const InputBox = ({ id, label, onChange, type, name, placeholder }) => {
     return (
         <div>
-            <Label text={label} />
+            <Label id={id} text={label} />
             <input
+                id={id || null}
+                className={'form-control'}
                 onChange={onChange || null}
                 type={type || 'text'} 
                 name={name || null }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Table } from 'react-bootstrap'
 
 const AccTransactions = ( {transactions} ) => {
     const [state, setState] = useState([])
@@ -17,14 +18,26 @@ const AccTransactions = ( {transactions} ) => {
         <div>
             <h2>History of Transactions</h2>
                 {Object.keys(transactions).length > 0 ?
-                    <>
-                        {state.map((item) =>
-                            <li key={item.id}>
-                                <span>{item.date}</span>
-                                <span>{item.reason}</span>
-                                <span style={setColor(item)}>{item.amount}</span>
-                            </li>
-                        )}
+                    <>   
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Reason</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>                     
+                            {state.map((item) =>
+                                <tr key={item.id}>
+                                    <td>{item.date}</td>
+                                    <td>{item.reason}</td>
+                                    <td style={setColor(item)}>
+                                        {item.amount}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </Table>
                     </> : 
                 <div>No transactions in the current account!</div> }
         </div>

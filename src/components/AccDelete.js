@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Button from './Button'
 import SelectList from './SelectList'
+import { Form } from 'react-bootstrap'
 
 const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
     const [state, setState] = useState({})
@@ -18,15 +19,18 @@ const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
     return (
         <div>
             <h2>Remove Bank Account</h2>
-            <form onSubmit={(e) => handleOnSubmit(e)}>
-                <SelectList 
-                    label={'Select bank account'}
-                    onChange={(e) => handleOnChange(e)}
-                    elements={accounts}
-                    name={'accountID'}
-                />
+            <Form onSubmit={(e) => handleOnSubmit(e)}>
+                <Form.Group controlId="account">
+                    <SelectList 
+                        label={'Bank account'}
+                        onChange={(e) => handleOnChange(e)}
+                        elements={accounts}
+                        name={'accountID'}
+                        isDefaultVal={true}
+                    />
+                </Form.Group>
                 <Button text={'Delete'} isLoading={isLoading} />
-            </form>
+            </Form>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Label from './Label'
 
-const SelectList = ({ elements, onChange, label, name }) => {
+const SelectList = ({ elements, onChange, label, name, isDefaultVal }) => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -10,7 +10,13 @@ const SelectList = ({ elements, onChange, label, name }) => {
     return (
         <div>
             <Label text={label} />
-            <select onChange={onChange || null} name={name || null} >
+            <select 
+                className={'custom-select'}
+                onChange={onChange || null} 
+                name={name || null} >
+                {isDefaultVal ?
+                    <option>Select</option>
+                    : '' }
                 {items.map((item, index) =>
                     <option key={index} value={item.id}>{item.name}</option>
                 )}

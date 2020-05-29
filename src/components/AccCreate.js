@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SelectList from './SelectList'
 import InputBox from './InputBox'
 import Button from './Button'
+import { Form } from 'react-bootstrap'
 import generateID from '../scripts/id-generator'
 
 const AccCreate = ({ currencies, isLoading, createAccount }) => {
@@ -38,20 +39,26 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
     return (
         <div>
             <h2>Add New Bank Account</h2>
-            <form onSubmit={(e) => handleOnSubmit(e)}>
-                <InputBox 
-                    label={'Account Name:'} 
-                    onChange={(e) => onChangeName(e)}
-                    name={'name'}
-                />
-                <SelectList 
-                    label={'Currency:'} 
-                    elements={currencies} 
-                    onChange={(e) => onChangeCurrency(e)}
-                    name={'currency'}
-                />
+            <Form onSubmit={(e) => handleOnSubmit(e)}>
+                <Form.Group controlId="accountName">
+                    <InputBox 
+                        label={'Account Name'} 
+                        onChange={(e) => onChangeName(e)}
+                        name={'name'}
+                        placeholder={'Enter Account Name'}
+                    />              
+                </Form.Group>
+                <Form.Group controlId="currency">
+                    <SelectList 
+                        label={'Currency'} 
+                        elements={currencies} 
+                        onChange={(e) => onChangeCurrency(e)}
+                        name={'currency'}
+                        isDefaultVal={true}
+                    />
+                </Form.Group>
                 <Button text={'Create'} isLoading={isLoading}/>
-            </form>
+            </Form>
         </div>
     )
 }
