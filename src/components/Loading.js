@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loading = () => {
     return (
-        <span>
+        <span className="center">
             <img src="/loading.gif" alt="Loading..." ></img>
         </span>
     )
