@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Label from './Label'
 import Select from 'react-select'
 
-const SelectList = ({ elements, onChange, label }) => {
+const SelectList = ({ elements, onChange, label, defaultVal }) => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -17,8 +17,9 @@ const SelectList = ({ elements, onChange, label }) => {
         <div>
             <Label text={label} />
             <Select 
-                onChange={onChange} 
+                onChange={onChange}
                 options={items}
+                defaultValue={defaultVal || null}
             />
         </div>
     )

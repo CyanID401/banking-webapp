@@ -33,6 +33,7 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
                     <SelectList 
                         elements={accounts}
                         onChange={(e) => setCurrentAcc(e.value)}
+                        defaultVal={{value: accounts[0].id, label: accounts[0].name}}
                     />
                     <Container>
                         <div>Balance: {state.balance}</div>
