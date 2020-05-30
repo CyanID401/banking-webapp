@@ -5,21 +5,29 @@ import AccDelete from '../components/AccDelete'
 import { createAccount, deleteAccount,
         getCurrencies, getRequestStatus } from '../app/reducers/accountReducer'
 import { getUserAccounts } from '../app/reducers/userReducer'
+import { Tabs, Tab } from 'react-bootstrap'
 
 const AccountManager = ({ currencies, accounts, isProcessing, 
     createAccount, deleteAccount }) => {
     return (
         <div>
-            <AccCreate 
-                currencies={currencies}
-                isLoading={isProcessing}
-                createAccount={createAccount}
-            />
-            <AccDelete
-                accounts={accounts}
-                isLoading={isProcessing}
-                deleteAccount={deleteAccount}
-            />
+            <h1>Manage Accounts</h1>
+            <Tabs defaultActiveKey="create">
+                <Tab eventKey="create" title="Create">
+                    <AccCreate 
+                        currencies={currencies}
+                        isLoading={isProcessing}
+                        createAccount={createAccount}
+                    />
+                </Tab>
+                <Tab eventKey="delete" title="Delete">
+                    <AccDelete
+                        accounts={accounts}
+                        isLoading={isProcessing}
+                        deleteAccount={deleteAccount}
+                    />
+                </Tab>
+            </Tabs>
         </div>
     )
 }
