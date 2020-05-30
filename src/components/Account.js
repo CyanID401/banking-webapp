@@ -31,9 +31,8 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
                 <div>
                     <h2>Information</h2>
                     <SelectList 
-                        elements={accounts.map(item => 
-                            ({id: item.id, name: item.name}))}
-                        onChange={(e) => setCurrentAcc(e.target.value)}
+                        elements={accounts}
+                        onChange={(e) => setCurrentAcc(e.value)}
                     />
                     <Container>
                         <div>Balance: {state.balance}</div>

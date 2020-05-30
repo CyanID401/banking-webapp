@@ -23,10 +23,9 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
     }
 
     const onChangeCurrency = (e) => {
-        let index = e.target.value
         setState({
             ...state,
-            currency: e.target[index].text
+            currency: e.label
             
         })
     }
@@ -39,12 +38,11 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
     return (
         <div>
             <h2>Add New Bank Account</h2>
-            <Form onSubmit={(e) => handleOnSubmit(e)}>
+            <Form onSubmit={e => handleOnSubmit(e)}>
                 <Form.Group controlId="accountName">
                     <InputBox 
                         label={'Account Name'} 
-                        onChange={(e) => onChangeName(e)}
-                        name={'name'}
+                        onChange={e => onChangeName(e)}
                         placeholder={'Enter Account Name'}
                     />              
                 </Form.Group>
@@ -52,9 +50,7 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
                     <SelectList 
                         label={'Currency'} 
                         elements={currencies} 
-                        onChange={(e) => onChangeCurrency(e)}
-                        name={'currency'}
-                        isDefaultVal={true}
+                        onChange={e => onChangeCurrency(e)}
                     />
                 </Form.Group>
                 <Button text={'Create'} isLoading={isLoading}/>

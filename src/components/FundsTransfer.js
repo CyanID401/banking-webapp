@@ -13,6 +13,13 @@ const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
         type: 'withdraw'
     })
 
+    const onChangeFrom = (e) => {
+        setState({
+            ...state,
+            fromAccount: e.value
+        })
+    }
+
     const handleOnChange = (e) => {
         setState({
             ...state,
@@ -32,7 +39,7 @@ const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
             <Form.Group>
                 <SelectList 
                     label={'From Account'}
-                    onChange={e =>handleOnChange(e)}
+                    onChange={e => onChangeFrom(e)}
                     elements={accounts} 
                     name={'fromAccount'}
                 />

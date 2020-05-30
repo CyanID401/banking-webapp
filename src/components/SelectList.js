@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import Label from './Label'
+import Select from 'react-select'
 
-const SelectList = ({ elements, onChange, label, name, isDefaultVal }) => {
+const SelectList = ({ elements, onChange, label }) => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        setItems(elements)
-    }, [])
+        const rsOptions = []
+        elements.map( item => {
+            const { id: value, name: label } = item
+            rsOptions.push({value, label})
+        })
+        setItems(rsOptions)
+    }, [elements])
     return (
         <div>
             <Label text={label} />
-            <select 
-                className={'custom-select'}
-                onChange={onChange || null} 
-                name={name || null} >
-                {isDefaultVal ?
-                    <option>Select</option>
-                    : '' }
-                {items.map((item, index) =>
-                    <option key={index} value={item.id}>{item.name}</option>
-                )}
-            </select>
+            <Select 
+                onChange={onChange} 
+                options={items}
+            />
         </div>
     )
 }

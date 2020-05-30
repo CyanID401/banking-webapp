@@ -8,7 +8,7 @@ const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
     const handleOnChange = (e) => {
         setState({
             ...state,
-            [e.target.name]: e.target.value
+            accountID: e.value
         })
     }
 
@@ -19,14 +19,12 @@ const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
     return (
         <div>
             <h2>Remove Bank Account</h2>
-            <Form onSubmit={(e) => handleOnSubmit(e)}>
+            <Form onSubmit={e => handleOnSubmit(e)}>
                 <Form.Group controlId="account">
                     <SelectList 
                         label={'Bank account'}
-                        onChange={(e) => handleOnChange(e)}
+                        onChange={e => handleOnChange(e)}
                         elements={accounts}
-                        name={'accountID'}
-                        isDefaultVal={true}
                     />
                 </Form.Group>
                 <Button text={'Delete'} isLoading={isLoading} />
