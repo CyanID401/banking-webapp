@@ -51,7 +51,6 @@ const withdrawFromAccount = (state, data) => {
             .toFixed(2))
             .toString()
         draft.data.bankAccs[data.fromAccount].transactions.push(data)
-
     })
 }
 
@@ -66,14 +65,14 @@ const depositToAccount = (state, data) => {
             type: 'withdraw'
         }
         draft.data.bankAccs[data.fromAccount].balance = ((
-            parseFloat(draft.data.bankAccs[data.fromAccount].balance) - data.amount)
+            parseFloat(draft.data.bankAccs[data.fromAccount].balance) - parseFloat(data.amount))
             .toFixed(2))
             .toString()
         draft.data.bankAccs[data.fromAccount].transactions.push(history)
 
         // to account
         draft.data.bankAccs[data.toAccount].balance = ((
-            parseFloat(draft.data.bankAccs[data.toAccount].balance) - data.amount)
+            parseFloat(draft.data.bankAccs[data.toAccount].balance) + parseFloat(data.amount))
             .toFixed(2))
             .toString()
         draft.data.bankAccs[data.toAccount].transactions.push(data)
