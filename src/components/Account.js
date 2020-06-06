@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import SelectList from './SelectList'
 import AccTransactions from './AccTransactions'
 import { Container } from 'react-bootstrap'
-import { filterElementByID } from '../scripts/utilities'
 
 
 const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
@@ -12,16 +11,20 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
         iban: '',
         transactions: []
     })
+    const [defaultAcc] = useState({
+        id: accounts[Object.keys(accounts)[0]].id,
+        name: accounts[Object.keys(accounts)[0]].name
+    })
+
     useEffect(() => {
-        setCurrentAcc(accounts[0].id)
+        setCurrentAcc(defaultAcc.id)
     }, [])
 
     useEffect(() => {
-        const data = 
-            filterElementByID(accounts, currentAcc)
+        const data = accounts[currentAcc]
         setState({
             ...state,
-            ...data[0]
+            ...data
         })
     }, [currentAcc])
     return (
@@ -33,7 +36,7 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
                     <SelectList 
                         elements={accounts}
                         onChange={(e) => setCurrentAcc(e.value)}
-                        defaultVal={{value: accounts[0].id, label: accounts[0].name}}
+                        defaultVal={{ value: defaultAcc.id, label: defaultAcc.name }}
                     />
                     <Container>
                         <div>Balance: {state.balance}</div>

@@ -31,12 +31,12 @@ describe('User Reducer', () => {
     it('should return the same state', () => {
         const initialState = {
             data: {
-                bankAccs: [
-                    {
+                bankAccs: {
+                   '': {
                         balance: '',
                         transactions: []
                     }
-                ]
+                }
             },
             isLoading: true,
             isError: false,
@@ -56,18 +56,18 @@ describe('User Reducer', () => {
     }
     const initialState = {
         data: {
-            bankAccs: [
-                {
+            bankAccs: {
+                '0': {
                     id: '0',
                     balance: '100',
                     transactions: []
                 },
-                {
+                '1': {
                     id: '1',
                     balance: '200',
                     transactions: []
                 }
-            ]
+            }
         }
     }
 
@@ -114,8 +114,11 @@ describe('User Reducer', () => {
             type: 'ADD_NEW_ACCOUNT',
             data: account
         }
-        expect(userReducer(initialState, action).data.bankAccs.length)
-            .toBeGreaterThan(initialState.data.bankAccs.length)
+
+        const state = userReducer(initialState, action)
+        
+        expect(Object.entries(state.data.bankAccs).length)
+            .toBeGreaterThan(Object.entries(initialState.data.bankAccs).length)
     })
 
     it('should remove an account by id', () => {
