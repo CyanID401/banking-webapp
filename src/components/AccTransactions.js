@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'react-bootstrap'
 
-const AccTransactions = ( {transactions} ) => {
+const AccTransactions = ({ transactions }) => {
     const [state, setState] = useState([])
-
     useEffect(() => {
         setState(transactions)
     }, [transactions])
@@ -17,7 +16,7 @@ const AccTransactions = ( {transactions} ) => {
     return (
         <div>
             <h2>History of Transactions</h2>
-                {Object.keys(transactions).length > 0 ?
+                { Object.keys(transactions).length > 0 ?
                     <>   
                     <Table responsive>
                         <thead>
@@ -27,19 +26,21 @@ const AccTransactions = ( {transactions} ) => {
                                 <th>Amount</th>
                             </tr>
                         </thead>
-                        <tbody>                     
-                            {state.map((item) =>
-                                <tr key={item.id}>
-                                    <td>{item.date}</td>
-                                    <td>{item.reason}</td>
-                                    <td style={setColor(item)}>
-                                        {item.amount}</td>
+                        <tbody>                    
+                            {Object.keys(state).map(item =>
+                                <tr key={state[item].id}>
+                                    <td>{state[item].date}</td>
+                                    <td>{state[item].reason}</td>
+                                    <td style={setColor(state[item])}>
+                                        {state[item].amount}
+                                    </td>
                                 </tr>
                             )}
                         </tbody>
                     </Table>
                     </> : 
-                <div>No transactions in the current account!</div> }
+                    <div>No transactions in the current account!</div> 
+                }
         </div>
     )
 }

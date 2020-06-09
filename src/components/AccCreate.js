@@ -8,7 +8,6 @@ import generateID from '../scripts/id-generator'
 const AccCreate = ({ currencies, isLoading, createAccount }) => {
     const [state, setState] = useState(
         {
-            id: generateID(),
             balance: '0.0',
             iban: 'BG58RZBB91555087474816',
             transactions: []
@@ -32,6 +31,10 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
+        setState({
+            ...state,
+            id: generateID()
+        })
         createAccount(state)
     }
 

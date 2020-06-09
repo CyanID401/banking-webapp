@@ -5,6 +5,7 @@ import fundsReducer from './fundsReducer'
 
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
+const initialState = {}
 
 describe('Funds Action Creators', () => {
     const transaction = {
@@ -17,7 +18,6 @@ describe('Funds Action Creators', () => {
     }
 
     it('should dispatch TRANSFER_FUNDS_REQUEST', () => {
-        const initialState = {}
         const store = mockStore(initialState)
 
         const expectedActions = [
@@ -37,7 +37,6 @@ describe('Funds Action Creators', () => {
     })
 
     it('should dispatch DEPOSIT_FUNDS_REQUEST', () => {
-        const initialState = {}
         const store = mockStore(initialState)
 
         const expectedActions = [

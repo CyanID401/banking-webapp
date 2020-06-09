@@ -4,7 +4,7 @@ import AccTransactions from './AccTransactions'
 import { Container } from 'react-bootstrap'
 
 
-const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
+const Account = ({ accounts, transactions, currentAcc, setCurrentAcc }) => {
     const [state, setState] = useState({
         balance: 0.0,
         currency: '',
@@ -42,12 +42,13 @@ const Account = ({ accounts, currentAcc, setCurrentAcc }) => {
                         <div>Balance: {state.balance}</div>
                         <div>Currency: {state.currency}</div>
                         <div>IBAN: {state.iban}</div>
-                        <a href="#">Details</a>
+                        <a href="#details">Details</a>
                     </Container>
                                         
                 </div>
+                {}
                 <AccTransactions 
-                    transactions={state.transactions}
+                    transactions={transactions}
                 />       
             </Container>
         </>

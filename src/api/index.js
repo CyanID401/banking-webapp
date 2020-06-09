@@ -25,21 +25,21 @@ const fakeData = {
             currency: 'BGN',
             transactions: [
                 {
-                    id: '0',
+                    id: '2bda2b26-66bc-4340-be76-76035f960655',
                     date: '1.1.2020',
                     reason: 'Salary',
                     amount: '666',
                     type: 'deposit',
                 },
                 {
-                    id: '1',
+                    id: 'af1879c5-0191-4995-afc8-8f04751db070',
                     date: '1.1.2020',
                     reason: 'Groceries',
                     amount: '30.23',
                     type: 'withdraw',
                 },
                 {
-                    id: '2',
+                    id: '31c531e5-0959-4c4f-bf79-f20d9afbdeb5',
                     date: '13.2.2020',
                     reason: 'Rent',
                     amount: '333',
@@ -55,21 +55,21 @@ const fakeData = {
             currency: 'BGN',
             transactions: [
                 {
-                    id: '0',
+                    id: 'c3a0f308-9dbc-4177-9422-47f253cac6ac',
                     date: '5.3.2020',
                     reason: 'Deposit',
                     amount: '600',
                     type: 'deposit',
                 },
                 {
-                    id: '1',
+                    id: 'eda5007c-da9e-484d-8778-92caf5c45f68 ',
                     date: '6.4.2020',
                     reason: 'Deposit',
                     amount: '300',
                     type: 'deposit',
                 },
                 {
-                    id: '2',
+                    id: 'abb1b035-11c2-48aa-87a5-e0d679047493',
                     date: '4.5.2020',
                     reason: 'Deposit',
                     amount: '300.00',
@@ -85,21 +85,21 @@ const fakeData = {
             currency: 'EUR',
             transactions: [
                 {
-                    id: '0',
+                    id: '7f05e392-5282-4787-9e61-56d6aba990b3',
                     date: '1.1.2020',
                     reason: 'Traveling expenses',
                     amount: '400',
                     type: 'withdraw',
                 },
                 {
-                    id: '1',
+                    id: 'ba74b86b-ad87-4a4d-b26f-5e9ca632ed74',
                     date: '2.1.2020',
                     reason: 'Work dinner',
                     amount: '100',
                     type: 'withdraw',
                 },
                 {
-                    id: '2',
+                    id: 'd8c2c6cb-3a9b-4969-9f1f-8adf8f19d501',
                     date: '3.2.2020',
                     reason: 'Consumatives',
                     amount: '550.30',

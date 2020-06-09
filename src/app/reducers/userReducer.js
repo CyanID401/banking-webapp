@@ -1,11 +1,10 @@
 import { instance } from '../../api/index'
-import produce from 'immer'
 import normalizedData from '../../api/normalize-data'
+import { insertItem, removeKey, toFloat } from '../../scripts/utilities'
+import omit from 'lodash/omit'
 
 // actions
 
-const LOGIN = 'LOGIN'
-const LOGOUT = 'LOGOUT'
 const GET_USER_REQUEST = 'GET_USER_REQUEST'
 const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 const GET_USER_ERROR = 'GET_USER_ERROR'
@@ -22,7 +21,6 @@ export const fetchUserData = (id = 0) => (dispatch) => {
     dispatch({ type: GET_USER_REQUEST })
     return instance.get(`/user/${id}`)
     .then(({ data }) => {
-        console.log(data)
         dispatch({ type: GET_USER_SUCCESS, payload: [normalizedData(data)] })
     })
     .catch(error => {
@@ -32,70 +30,67 @@ export const fetchUserData = (id = 0) => (dispatch) => {
 
 // reducer
 
-// let initialState = {
-//     data: {
-//         bankAccs: {
-//            '': {
-//                 balance: '',
-//                 transactions: []
-//             }
-//         }
-//     },
-//     isLoading: true,
-//     isError: false,
-//     errorMsg: null
-// }
-
 let initialState = {
-    bankAccs: {
-        '': {
-            balance: '',
-        }
-    },
+    bankAccs: {},
     transactions: {},
-    data: { firstName: 'test', lastName: 'test'},
+    data: {},
     isLoading: true,
     isError: false,
     errorMsg: null
 }
 
 const withdrawFromAccount = (state, data) => {
-    return produce(state, draft => { 
-        draft.data.bankAccs[data.fromAccount].balance = ((
-            parseFloat(draft.data.bankAccs[data.fromAccount].balance) - data.amount)
-            .toFixed(2))
-            .toString()
-        draft.data.bankAccs[data.fromAccount].transactions.push(data)
-    })
+    return {
+        ...state,
+        bankAccs: {
+            ...state.bankAccs,
+            [data.fromAccount]: {
+                ...state.bankAccs[data.fromAccount],
+                balance: 
+                    (toFloat(state.bankAccs[data.fromAccount].balance) - toFloat(data.amount))
+                    .toString(),
+                transactions: insertItem(state.bankAccs[data.fromAccount].transactions, data.id)
+            }
+        },
+        transactions: {
+            ...state.transactions,
+            [data.id]: omit(data, ['fromAccount', 'name', 'iban'])
+        }
+    }
 }
 
 const depositToAccount = (state, data) => {
-    return produce(state, draft => { 
-        // from account
-        let history = {
-            id: data.id, 
-            date: data.date,
-            reason: data.reason,
-            amount: data.amount,
-            type: 'withdraw'
-        }
-        draft.data.bankAccs[data.fromAccount].balance = ((
-            parseFloat(draft.data.bankAccs[data.fromAccount].balance) - parseFloat(data.amount))
-            .toFixed(2))
-            .toString()
-        draft.data.bankAccs[data.fromAccount].transactions.push(history)
+    return { 
+        ...state,
+        bankAccs: {
+            ...state.bankAccs,
+            // from account
+            [data.fromAccount]: {
+                ...state.bankAccs[data.fromAccount],
+                balance: 
+                    (toFloat(state.bankAccs[data.fromAccount].balance) - toFloat(data.amount))
+                    .toString(),
+                transactions: insertItem(state.bankAccs[data.fromAccount].transactions, data.id) //itFrom
+            },
 
-        // to account
-        draft.data.bankAccs[data.toAccount].balance = ((
-            parseFloat(draft.data.bankAccs[data.toAccount].balance) + parseFloat(data.amount))
-            .toFixed(2))
-            .toString()
-        draft.data.bankAccs[data.toAccount].transactions.push(data)
-    })
+            // to account
+            [data.toAccount]: {
+                ...state.bankAccs[data.toAccount],
+                balance: 
+                    (toFloat(state.bankAccs[data.toAccount].balance) + toFloat(data.amount)) ///doesn't work not doing the addition
+                    .toString(),
+                transactions: insertItem(state.bankAccs[data.toAccount].transactions, data.id) //idTo
+            }
+        },
+        transactions: {
+            ...state.transactions,
+            [data.id]: omit(data, ['fromAccount', 'toAccount', 'name', 'iban'])
+            //insert 2nd transaction here (one is with withdraw type/the other is with deposit and they have diffrent ids)
+        }
+    }
 }
 
 const userReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case GET_USER_SUCCESS:
             console.log('Initializating state from mock API...')
@@ -118,19 +113,18 @@ const userReducer = (state = initialState, action) => {
         case UPDATE_ACCOUNT_DEPOSIT:
             return depositToAccount(state, action.data)
         case ADD_NEW_ACCOUNT:
-            return produce(state, draft => {
-                const id = action.data.id
-                Object.assign(draft.data.bankAccs, {[id]: action.data})
-            })
+            return {
+                ...state,
+                bankAccs: {
+                    ...state.bankAccs,
+                    [action.data.id]: action.data
+                }
+            }
         case REMOVE_ACCOUNT:
-            return produce(state, draft => {
-                console.log(Object.keys(draft.data.bankAccs))
-                console.log(Object.entries(draft.data.bankAccs))
-                // this doesn't work
-                console.log(Object.keys(draft.data.bankAccs).splice(action.data.accountID, 1))
-                //Object.keys(draft.data.bankAccs).filter(id => id !== action.data.accountID)
-                //draft.data.bankAccs.splice(action.data.accountID, 1)
-            })
+            return {
+                ...state,
+                bankAccs: removeKey(state.bankAccs, action.data.id)
+            }
         default:
             return state
     }
@@ -147,6 +141,10 @@ export const getUserDataStatus = (state) => {
 
 export const getUserAccounts = (state) => {
     return state.user.bankAccs
+}
+
+export const getUserTransactions = (state) => {
+    return state.user.transactions
 }
 
 export const getUserFName = (state) => {

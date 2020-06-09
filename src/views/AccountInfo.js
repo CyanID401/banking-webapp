@@ -1,15 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Account from '../components/Account'
-import { getUserAccounts } from '../app/reducers/userReducer'
+import { getUserAccounts, getUserTransactions } from '../app/reducers/userReducer'
 import * as acc from '../app/reducers/accountReducer'
+import filter from 'lodash/filter';
 
-const AccountInfo = ({ accounts, currentAcc, setCurrentAcc }) => {
-
+const AccountInfo = ({ accounts, transactions, currentAcc, setCurrentAcc }) => {
     return (
         <>
             <Account 
                 accounts={accounts}
+                transactions={
+                    filter(
+                        transactions, 
+                        tr => accounts[currentAcc].transactions.includes(tr.id)
+                    )
+                }
                 currentAcc={currentAcc}
                 setCurrentAcc={setCurrentAcc}
             />  
@@ -20,6 +26,7 @@ const AccountInfo = ({ accounts, currentAcc, setCurrentAcc }) => {
 const mapStateToProps = (state) => {
     return {
         accounts: getUserAccounts(state),
+        transactions: getUserTransactions(state),
         currentAcc: acc.getCurrentAccount(state)
     }
 }

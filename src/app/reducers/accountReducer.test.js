@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import * as actions from './accountReducer'
 import accountReducer from './accountReducer'
 
+const initialState = {}
 const data = { 
     id: 0, 
     name: 'account', 
@@ -15,7 +16,6 @@ const mockStore = configureStore(middlewares)
 
 describe('Account Action Creators', () => {
     it('should dispatch CREATE_ACCOUNT_REQUEST', () => {
-        const initialState = {}
         const store = mockStore(initialState)
 
         const expectedActions = [
@@ -35,7 +35,6 @@ describe('Account Action Creators', () => {
     })
 
     it('should dispatch DELETE_ACCOUNT_REQUEST', () => {
-        const initialState = {}
         const store = mockStore(initialState)
 
         const expectedActions = [

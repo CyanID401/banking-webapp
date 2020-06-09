@@ -8,7 +8,6 @@ import generateID from '../scripts/id-generator'
 
 const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
     const [state, setState] = useState({
-        id: generateID(),
         date: date(),
         type: 'withdraw'
     })
@@ -29,6 +28,10 @@ const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
+        setState({
+            ...state,
+            id: generateID()
+        })
         transferFunds(state)
     }
 

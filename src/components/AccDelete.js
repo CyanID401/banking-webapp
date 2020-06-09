@@ -5,10 +5,11 @@ import { Form } from 'react-bootstrap'
 
 const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
     const [state, setState] = useState({})
+    
     const handleOnChange = (e) => {
         setState({
             ...state,
-            accountID: e.value
+            id: e.value
         })
     }
 
