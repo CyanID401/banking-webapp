@@ -4,7 +4,7 @@ import Label from './Label'
 const InputBox = ({ id, label, onChange, type, name, placeholder }) => {
     return (
         <div>
-            <Label id={id} text={label} />
+            { label && <Label id={id} text={label} /> }
             <input
                 id={id || null}
                 className={'form-control'}

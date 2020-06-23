@@ -8,8 +8,7 @@ const AccTransactions = ({ transactions }) => {
     }, [transactions])
 
     const setColor = (item) => {
-        let style = {color: ''}
-        style.color = 'red'
+        let style = { color: 'red' }
         item.type === 'deposit' && (style.color = 'green')
         return style
     }

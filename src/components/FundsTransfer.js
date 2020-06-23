@@ -36,7 +36,7 @@ const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
     }
 
     return (
-        <div>
+    <div>
         <h2>Transfer Funds</h2>
         <Form onSubmit={(e) => handleOnSubmit(e)}>
             <Form.Group>

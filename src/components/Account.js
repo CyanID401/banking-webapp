@@ -46,7 +46,6 @@ const Account = ({ accounts, transactions, currentAcc, setCurrentAcc }) => {
                     </Container>
                                         
                 </div>
-                {}
                 <AccTransactions 
                     transactions={transactions}
                 />       

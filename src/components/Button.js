@@ -1,13 +1,14 @@
 import React from 'react'
 import { Spinner } from 'react-bootstrap'
 
-const Button = ( {className, onClick, isLoading, text} ) => {
+const Button = ({ className, onClick, isLoading, text }) => {
     return (
         <button 
             className={className || 'btn btn-primary'}
             onClick={onClick || null}
-            disabled={isLoading}>
-            {isLoading ? 
+            disabled={isLoading}
+        >
+            { isLoading ? 
                 <Spinner
                     as="span"
                     animation="border"
@@ -16,7 +17,8 @@ const Button = ( {className, onClick, isLoading, text} ) => {
                     aria-hidden="true"
                     className="mr-1"
                 />
-             : null}{text}
+             : null }
+             {text}
         </button>
     )
 }

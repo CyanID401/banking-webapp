@@ -3,11 +3,10 @@ import React from 'react'
 const Label = ({ className, text }) => {
     return (
         <>
-            {text !== undefined &&
+            { text !== undefined &&
                 <label className={className || null}>
                     {text}
-                </label>
-            }
+                </label> }
         </>
     )
 }

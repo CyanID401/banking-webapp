@@ -1,15 +1,21 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from './app/store';
-import App from './App';
+import { shallow } from 'enzyme'
+import App from './App'
+import Routes from './components/Routes'
 
-test('renders learn react link', () => {
-  const { getByText } = render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+const renderComp = () => {
+  return shallow(<App />)
+}
 
+describe('App', () => {
 
-});
+	let wrap
+	beforeEach(() => {
+		wrap = renderComp()
+	})
+
+	it('renders with routes and navigation', () => {
+		expect(wrap.find('Navigation').length).toEqual(1)
+		expect(wrap.containsMatchingElement(<Routes />)).toEqual(true)
+	})
+})

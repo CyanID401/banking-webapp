@@ -14,7 +14,7 @@ const SelectList = ({ elements, onChange, label, defaultVal }) => {
     }, [elements])
     return (
         <div>
-            <Label text={label} />
+            { label && <Label text={label} /> }
             <Select 
                 onChange={onChange}
                 options={items}
