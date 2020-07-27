@@ -9,6 +9,7 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
     const [state, setState] = useState(
         {
             balance: '0.0',
+            id: generateID(),
             iban: 'BG58RZBB91555087474816',
             transactions: []
         }

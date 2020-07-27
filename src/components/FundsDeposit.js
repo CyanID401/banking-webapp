@@ -9,6 +9,7 @@ import generateID from '../scripts/id-generator'
 const FundsDeposit = ({ accounts, isLoading, depositFunds  }) => {
     const [state, setState] = useState({
         date: date(),
+        id: generateID(),
         type: 'deposit'
     })
 
@@ -37,15 +38,17 @@ const FundsDeposit = ({ accounts, isLoading, depositFunds  }) => {
         e.preventDefault()
         setState({
             ...state,
+            testKey: 'generation goes brrrrrrrrrrrr',
             id: generateID()
         })
+        console.log(state)
         depositFunds(state)
     }
 
     return (
         <div>
         <h2>Deposit Funds</h2>
-        <Form onSubmit={(e) => handleOnSubmit(e)}>
+        <Form onSubmit={e => handleOnSubmit(e)}>
             <Form.Group>
                 <SelectList 
                     label={'From Account'}

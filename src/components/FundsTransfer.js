@@ -9,6 +9,7 @@ import generateID from '../scripts/id-generator'
 const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
     const [state, setState] = useState({
         date: date(),
+        id: generateID(),
         type: 'withdraw'
     })
 
@@ -38,7 +39,7 @@ const FundsTransfer = ({ accounts, isLoading, transferFunds }) => {
     return (
     <div>
         <h2>Transfer Funds</h2>
-        <Form onSubmit={(e) => handleOnSubmit(e)}>
+        <Form onSubmit={e => handleOnSubmit(e)}>
             <Form.Group>
                 <SelectList 
                     label={'From Account'}

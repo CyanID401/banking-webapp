@@ -12,7 +12,3 @@ export const removeKey = (obj, propToDelete) => {
     const { [propToDelete]: deleted, ...rest } = obj
     return rest
 }
-
-export const toFloat = (number) => {
-    return parseFloat(number).toFixed(2)
-}

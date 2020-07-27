@@ -1,6 +1,6 @@
 import { instance } from '../../api/index'
 import normalizedData from '../../api/normalize-data'
-import { insertItem, removeKey, toFloat } from '../../scripts/utilities'
+import { insertItem, removeKey } from '../../scripts/utilities'
 import omit from 'lodash/omit'
 
 // actions
@@ -47,19 +47,19 @@ const withdrawFromAccount = (state, data) => {
             [data.fromAccount]: {
                 ...state.bankAccs[data.fromAccount],
                 balance: 
-                    (toFloat(state.bankAccs[data.fromAccount].balance) - toFloat(data.amount))
-                    .toString(),
+                    parseFloat(state.bankAccs[data.fromAccount].balance) - parseFloat(data.amount),
                 transactions: insertItem(state.bankAccs[data.fromAccount].transactions, data.id)
             }
         },
         transactions: {
             ...state.transactions,
-            [data.id]: omit(data, ['fromAccount', 'name', 'iban'])
+            [data.id]: omit({ ...data }, ['name', 'iban'])
         }
     }
 }
 
 const depositToAccount = (state, data) => {
+    console.log(data)
     return { 
         ...state,
         bankAccs: {
@@ -68,24 +68,21 @@ const depositToAccount = (state, data) => {
             [data.fromAccount]: {
                 ...state.bankAccs[data.fromAccount],
                 balance: 
-                    (toFloat(state.bankAccs[data.fromAccount].balance) - toFloat(data.amount))
-                    .toString(),
-                transactions: insertItem(state.bankAccs[data.fromAccount].transactions, data.id) //itFrom
+                    parseFloat(state.bankAccs[data.fromAccount].balance) - parseFloat(data.amount),
+                transactions: insertItem(state.bankAccs[data.fromAccount].transactions, data.id)
             },
 
             // to account
             [data.toAccount]: {
                 ...state.bankAccs[data.toAccount],
                 balance: 
-                    (toFloat(state.bankAccs[data.toAccount].balance) + toFloat(data.amount)) ///doesn't work not doing the addition
-                    .toString(),
-                transactions: insertItem(state.bankAccs[data.toAccount].transactions, data.id) //idTo
+                    parseFloat(state.bankAccs[data.toAccount].balance) + parseFloat(data.amount),
+                transactions: insertItem(state.bankAccs[data.toAccount].transactions, data.id)
             }
         },
         transactions: {
             ...state.transactions,
-            [data.id]: omit(data, ['fromAccount', 'toAccount', 'name', 'iban'])
-            //insert 2nd transaction here (one is with withdraw type/the other is with deposit and they have diffrent ids)
+            [data.id]: { ...data }
         }
     }
 }
