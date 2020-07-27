@@ -3,6 +3,10 @@
 
 @import '../App.scss';
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,7 +21,39 @@ code {
     monospace;
 }
 
+h1 {
+  margin: 2% 0;
+}
+
+h2 {
+  margin: 1% 0;
+}
+
 .center {
   display: flex;
+  align-items: center;
   justify-content: center;
+}
+
+.shadow {
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.hide-overflow {
+  div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.acc {
+  margin: 5% 0;
+}
+
+.acc-info {
+  margin-top: 10px;
+  justify-content: space-between;
 }

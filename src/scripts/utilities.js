@@ -12,3 +12,7 @@ export const removeKey = (obj, propToDelete) => {
     const { [propToDelete]: deleted, ...rest } = obj
     return rest
 }
+
+export const fixedFloat = (number, digits=2) => {
+    return parseFloat(number).toFixed(digits)
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import SelectList from './SelectList'
 import AccTransactions from './AccTransactions'
 import { Container } from 'react-bootstrap'
-
+import { fixedFloat } from '../scripts/utilities'
 
 const Account = ({ accounts, transactions, currentAcc, setCurrentAcc }) => {
     const [state, setState] = useState({
@@ -31,20 +31,19 @@ const Account = ({ accounts, transactions, currentAcc, setCurrentAcc }) => {
         <>
             <h1>Current Bank Account</h1>
             <Container>
-                <div>
+                <div className={"acc shadow"}>
                     <h2>Information</h2>
                     <SelectList 
                         elements={accounts}
                         onChange={(e) => setCurrentAcc(e.value)}
                         defaultVal={{ value: defaultAcc.id, label: defaultAcc.name }}
                     />
-                    <Container>
-                        <div>Balance: {state.balance}</div>
+                    <Container className={"acc-info hide-overflow"}>
+                        <div>Balance: {fixedFloat(state.balance)}</div>
                         <div>Currency: {state.currency}</div>
                         <div>IBAN: {state.iban}</div>
                         <a href="#details">Details</a>
-                    </Container>
-                                        
+                    </Container>             
                 </div>
                 <AccTransactions 
                     transactions={transactions}

@@ -13,7 +13,7 @@ const AccTransactions = ({ transactions }) => {
         return style
     }
     return (
-        <div>
+        <div className={"shadow"}>
             <h2>History of Transactions</h2>
                 { Object.keys(transactions).length > 0 ?
                     <>   
