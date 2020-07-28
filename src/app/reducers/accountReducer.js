@@ -100,6 +100,13 @@ export const getRequestStatus = (state) => {
     return state.account.processingRequest
 }
 
+export const getAccErrorStatus = (state) => {
+    return {
+        isError: state.account.isError,
+        errorMsg: state.account.errorMsg
+    }
+}
+
 export const getCurrencies = (state) => {
     return state.account.currencies
 }

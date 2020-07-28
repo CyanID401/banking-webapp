@@ -59,7 +59,6 @@ const withdrawFromAccount = (state, data) => {
 }
 
 const depositToAccount = (state, data) => {
-    console.log(data)
     return { 
         ...state,
         bankAccs: {

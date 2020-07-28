@@ -76,5 +76,12 @@ export const getTransactionStatus = (state) => {
     return state.funds.processingTransaction
 }
 
+export const getErrorStatus = (state) => {
+    return {
+        isError: state.funds.isError,
+        msg: state.funds.errorMsg
+    }
+}
+
 export default fundsReducer
 

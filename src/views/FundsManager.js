@@ -1,16 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getUserAccounts } from '../app/reducers/userReducer'
-import { transferFunds, depositFunds,
-     getTransactionStatus } from '../app/reducers/fundsReducer'
 import FundsTransfer from '../components/FundsTransfer'
 import FundsDeposit from '../components/FundsDeposit'
+import AlertMsg from '../components/Alert'
+import { getUserAccounts } from '../app/reducers/userReducer'
+import { transferFunds, depositFunds,
+     getTransactionStatus, getErrorStatus} from '../app/reducers/fundsReducer'
 import { Tabs, Tab } from 'react-bootstrap'
 
-const FundsManager = ({ accounts, transferFunds, depositFunds, isProcessing  }) => {
+const FundsManager = ({ accounts, transferFunds, depositFunds, isProcessing,  errorStatus }) => {
 
     return (
         <>
+            { errorStatus.isError &&
+                <AlertMsg msg={errorStatus.msg} type={'error'}/> }
             <h1>Manage Funds</h1>
             <Tabs defaultActiveKey="transfer">
                 <Tab eventKey="transfer" title="Transfer">
@@ -35,7 +38,8 @@ const FundsManager = ({ accounts, transferFunds, depositFunds, isProcessing  }) 
 const mapStateToProps = (state) => {
     return {
         accounts: getUserAccounts(state),
-        isProcessing: getTransactionStatus(state)
+        isProcessing: getTransactionStatus(state),
+        errorStatus: getErrorStatus(state)
     }
 }
 

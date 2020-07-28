@@ -38,10 +38,8 @@ const FundsDeposit = ({ accounts, isLoading, depositFunds  }) => {
         e.preventDefault()
         setState({
             ...state,
-            testKey: 'generation goes brrrrrrrrrrrr',
             id: generateID()
         })
-        console.log(state)
         depositFunds(state)
     }
 
