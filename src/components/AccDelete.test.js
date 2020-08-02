@@ -16,7 +16,7 @@ describe('Account Delete', () => {
 
     it('should render', () => {
         expect(wrap.find('Form').length).toEqual(1)
-        expect(wrap.find('SelectList').length).toEqual(1)
+        expect(wrap.find('Controller').length).toEqual(1)
         expect(wrap.find('Button').length).toEqual(1)
     })
 })

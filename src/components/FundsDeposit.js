@@ -1,82 +1,101 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import SelectList from './SelectList'
 import InputBox from './InputBox'
 import Button from './Button'
+import ErrorText from './ErrorText'
 import { Form } from 'react-bootstrap'
-import date from '../scripts/date'
+import getDate from '../scripts/date'
 import generateID from '../scripts/id-generator'
+import { numberPattern } from '../scripts/custom-validation'
+
 
 const FundsDeposit = ({ accounts, isLoading, depositFunds  }) => {
-    const [state, setState] = useState({
-        date: date(),
-        id: generateID(),
-        type: 'deposit'
-    })
+    const { control, errors, handleSubmit } = useForm()
 
-    const onChangeFrom = (e) => {
-        setState({
-            ...state,
-            fromAccount: e.value
-        })
+    const onSubmit = data => {
+        const transaction = {
+            id: generateID(),
+            date: getDate(),
+            type: 'deposit',
+            fromAccount: data.fromAccount.value,
+            toAccount: data.toAccount.value,
+            amount: data.amount,
+            reason: data.reason
+        }
+
+        depositFunds(transaction)
     }
 
-    const onChangeTo = (e) => {
-        setState({
-            ...state,
-            toAccount: e.value
-        })
-    }
-
-    const handleOnChange = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
-        setState({
-            ...state,
-            id: generateID()
-        })
-        depositFunds(state)
-    }
-
+    
     return (
         <div>
         <h2>Deposit Funds</h2>
-        <Form onSubmit={e => handleOnSubmit(e)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group>
-                <SelectList 
-                    label={'From Account'}
-                    onChange={e => onChangeFrom(e)}
-                    elements={accounts}
+                <Controller 
                     name={'fromAccount'}
+                    as={SelectList}
+                    label={'From Account'}
+                    elements={accounts}
+                    control={control}
+                    rules={{ required: true }}
+                />
+                <ErrorText 
+                    error={errors.fromAccount} 
+                    errType={'required'} 
+                    text={'Selecting an account is required!'} 
                 />
             </Form.Group> 
             <Form.Group>
-                <SelectList 
-                    label={'To Account'}
-                    onChange={e => onChangeTo(e)}
-                    elements={accounts} 
+                <Controller 
                     name={'toAccount'}
+                    as={SelectList}
+                    label={'To Account'}
+                    elements={accounts}
+                    control={control}
+                    rules={{ required: true }}
                 />
+                <ErrorText 
+                    error={errors.toAccount} 
+                    errType={'required'} 
+                    text={'Selecting an account is required!'} 
+                />
+                {/* validate if fromAccount.value !== toAccount.value */}
             </Form.Group>
             <Form.Group>
-                <InputBox 
-                    label={'Amount'} 
-                    onChange={e => handleOnChange(e)}
+                <Controller 
                     name={'amount'}
+                    as={InputBox}
+                    label={'Amount'}
                     placeholder={'0.0'}
+                    control={control}
+                    rules={{ required: true, pattern: numberPattern() }}
+                />
+                <ErrorText 
+                    error={errors.amount} 
+                    errType={'required'} 
+                    text={'Specifying the amount is required!'} 
+                />
+                <ErrorText 
+                    error={errors.amount} 
+                    errType={'pattern'} 
+                    text={'Value is not valid!'} 
                 />
             </Form.Group> 
-            <Form.Group> 
-                <InputBox 
-                    label={'Reason'} 
-                    onChange={e => handleOnChange(e)}
+            <Form.Group>
+                <Controller 
                     name={'reason'}
+                    as={InputBox}
+                    label={'Reason'}
                     placeholder={'Enter Reason For The Transaction'}
+                    control={control}
+                    rules={{ required: true }}
+                />
+                <ErrorText 
+                    error={errors.reason} 
+                    errType={'required'} 
+                    text={'Specifying the reason is required!'} 
                 />
             </Form.Group> 
             <Button text={'Deposit'} isLoading={isLoading} />

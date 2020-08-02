@@ -8,7 +8,7 @@ const SelectList = ({ elements, onChange, label, defaultVal }) => {
     useEffect(() => {
         const rsOptions = []
         Object.entries(elements).map(item => {
-            rsOptions.push({ value: item[1].id, label: item[1].name })
+            return rsOptions.push({ value: item[1].id, label: item[1].name })
         })
         setItems(rsOptions)
     }, [elements])

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Spinner } from 'react-bootstrap'
 
-const Button = ({ className, onClick, isLoading, text }) => {
+const Button = ({ className, onClick, type, isLoading, text}) => {
     return (
         <button 
             className={className || 'btn btn-primary'}
             onClick={onClick || null}
+            type={type}
             disabled={isLoading}
         >
             { isLoading ? 

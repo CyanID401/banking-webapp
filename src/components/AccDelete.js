@@ -1,32 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import Button from './Button'
 import SelectList from './SelectList'
+import ErrorText from './ErrorText'
 import { Form } from 'react-bootstrap'
 
 const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
-    const [state, setState] = useState({})
-    
-    const handleOnChange = (e) => {
-        setState({
-            ...state,
-            id: e.value
-        })
-    }
+    const defaultValues = { accs: {} } 
+    const { control, errors, handleSubmit } = useForm(defaultValues)
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
-        deleteAccount(state)
+    const onSubmit = data => {
+        console.log(data)
+        const account = { id: data.accs.value }
+        deleteAccount(account)
     }
     return (
         <div>
             <h2>Remove Bank Account</h2>
-            <Form onSubmit={e => handleOnSubmit(e)}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group controlId="account">
-                    <SelectList 
+                    <Controller 
+                        name={'accs'}
+                        as={SelectList}
                         label={'Bank account'}
-                        onChange={e => handleOnChange(e)}
                         elements={accounts}
+                        control={control}
+                        rules={{ required: true }}
                     />
+                    {errors.account && <ErrorText text={'Selecting an account is required!'} />}
                 </Form.Group>
                 <Button text={'Delete'} isLoading={isLoading} />
             </Form>
