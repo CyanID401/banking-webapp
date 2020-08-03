@@ -1,9 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Container, Navbar, Nav } from 'react-bootstrap'
 import UserInfo from './UserInfo'
+import { getAuthStatus, getAuthUserID, logoutUser } from '../app/reducers/authReducer'
 
-const Navigation = () => {
+
+const Navigation = ({ authStatus, authUserID, logoutUser }) => {
+
+    const handleClick = () => {
+        logoutUser(authUserID)
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -17,7 +25,13 @@ const Navigation = () => {
                         <Nav.Link as={Link} to="/funds">Manage Funds</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#"><UserInfo></UserInfo></Nav.Link>
+                        {!authStatus.isAuth 
+                            ? <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                            : <>
+                                <Nav.Link href="#"><UserInfo /></Nav.Link>
+                                <Nav.Link href="" onClick={handleClick}>Logout</Nav.Link>
+                            </>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -25,4 +39,14 @@ const Navigation = () => {
     )
 }
 
-export default Navigation
+const mapStateToProps = (state) => {
+    return {
+        authStatus: getAuthStatus(state),
+        authUserID: getAuthUserID(state)
+    }
+}
+
+const mapDispatchToProps = {
+    logoutUser
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

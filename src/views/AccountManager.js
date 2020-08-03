@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AccCreate from '../components/AccCreate'
 import AccDelete from '../components/AccDelete'
-import AlertMsg from '../components/Alert'
+import AlertMsg from '../components/AlertMsg'
 import { createAccount, deleteAccount,
         getCurrencies, getRequestStatus, getAccErrorStatus } from '../app/reducers/accountReducer'
 import { getUserAccounts } from '../app/reducers/userReducer'

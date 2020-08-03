@@ -9,6 +9,7 @@ export const instance = axios.create({
 const user = '/user/0'
 const accounts = '/accounts'
 const transactions = '/transactions'
+const authenticate = '/authenticate'
 
 
 const mock = new MockAdapter(instance, { delayResponse: 350 })
@@ -110,9 +111,18 @@ const fakeData = {
     ]
 }
 
+mock.onPost(authenticate).reply(201, {
+    message: 'Successfully authenticated the user.',
+    userID: 0
+})
+
 mock.onGet(user).reply(200, 
     fakeData
 )
+
+mock.onPost(user).reply(200, {
+    message: 'Successfully logged out user'
+})
 
 mock.onPost(accounts).reply(201, {
     message: 'Successfully added a new account.'

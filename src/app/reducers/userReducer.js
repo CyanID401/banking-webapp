@@ -17,7 +17,7 @@ const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT'
 
 // action creators
 
-export const fetchUserData = (id = 0) => (dispatch) => {
+export const fetchUserData = id => dispatch => {
     dispatch({ type: GET_USER_REQUEST })
     return instance.get(`/user/${id}`)
     .then(({ data }) => {
@@ -34,7 +34,7 @@ let initialState = {
     bankAccs: {},
     transactions: {},
     data: {},
-    isLoading: true,
+    isLoading: false,
     isError: false,
     errorMsg: null
 }
@@ -88,6 +88,11 @@ const depositToAccount = (state, data) => {
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_USER_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
         case GET_USER_SUCCESS:
             console.log('Initializating state from mock API...')
             return {

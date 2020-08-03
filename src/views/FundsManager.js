@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import FundsTransfer from '../components/FundsTransfer'
 import FundsDeposit from '../components/FundsDeposit'
-import AlertMsg from '../components/Alert'
+import AlertMsg from '../components/AlertMsg'
 import { getUserAccounts } from '../app/reducers/userReducer'
 import { transferFunds, depositFunds,
      getTransactionStatus, getErrorStatus} from '../app/reducers/fundsReducer'

@@ -10,7 +10,6 @@ const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
     const { control, errors, handleSubmit } = useForm(defaultValues)
 
     const onSubmit = data => {
-        console.log(data)
         const account = { id: data.accs.value }
         deleteAccount(account)
     }

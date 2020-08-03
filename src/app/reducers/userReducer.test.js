@@ -6,7 +6,7 @@ import userReducer from './userReducer'
 const defaultInitialState = {
     bankAccs: {},
     data: {},
-    isLoading: true,
+    isLoading: false,
     isError: false,
     errorMsg: null,
     transactions: {}
@@ -23,7 +23,7 @@ const initialState = {
         }
     },
     data: {},
-    isLoading: true,
+    isLoading: false,
     isError: false,
     errorMsg: null,
     transactions: {}
@@ -57,7 +57,7 @@ describe('User Action Creators', () => {
             { type: 'GET_USER_SUCCESS' },
         ]
 
-        return store.dispatch(actions.fetchUserData()).then(() => {
+        return store.dispatch(actions.fetchUserData(0)).then(() => {
             const actionCreators = store.getActions()
             const dispatchedActions = 
                 actionCreators.map(item => {

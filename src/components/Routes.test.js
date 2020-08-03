@@ -3,6 +3,8 @@ import { shallow } from 'enzyme'
 import configureStore from 'redux-mock-store'
 import Loading from './Loading'
 import Routes from './Routes'
+import ErrorText from './ErrorText'
+import AlertMsg from './AlertMsg'
 
 const setUp = (initialState={}) => {
     const mockStore = configureStore()
@@ -17,7 +19,10 @@ describe('Routes', () => {
         let initialState = {
             user: {
                 isLoading: true,
-                isError: false
+                isError: false,
+            },
+            auth: {
+                authUserID: null
             }
         }
         let wrap = setUp(initialState)
@@ -28,7 +33,10 @@ describe('Routes', () => {
         let initialState = {
             user: {
                 isLoading: false,
-                isError: false
+                isError: false,
+            },
+            auth: {
+                authUserID: null
             }
         }
         let wrap = setUp(initialState)
@@ -37,13 +45,16 @@ describe('Routes', () => {
 
     
     it('should display error message', () => {
-        let initialState = {
+        let initial = {
             user: {
                 isLoading: false,
                 isError: true
+            },
+            auth: {
+                authUserID: null
             }
         }
-        let wrap = setUp(initialState)
-        expect(wrap.text().includes('Error Loading Data')).toBe(true)
+        let wrap = setUp(initial)
+        expect(wrap.containsMatchingElement(<AlertMsg />)).toEqual(true)
     })
 })
