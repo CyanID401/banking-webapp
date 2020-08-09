@@ -1,9 +1,9 @@
 import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import SelectList from './SelectList'
-import InputBox from './InputBox'
-import Button from './Button'
-import ErrorText from './ErrorText'
+import SelectList from './generic/SelectList'
+import InputBox from './generic/InputBox'
+import Button from './generic/Button'
+import ErrorText from './generic/ErrorText'
 import { Form } from 'react-bootstrap'
 import generateID from '../scripts/id-generator'
 
@@ -40,7 +40,11 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
                         control={control}
                         rules={{ required: true }}
                     />
-                    {errors.accName && <ErrorText text={'Account name is required!'} />}
+                    <ErrorText 
+                        error={errors.accName} 
+                        errType={'required'} 
+                        text={'Account name is required!'} 
+                    />
                 </Form.Group>
                 <Form.Group controlId="currencies">
                     <Controller 
@@ -50,7 +54,10 @@ const AccCreate = ({ currencies, isLoading, createAccount }) => {
                         control={control}
                         rules={{ required: true }}
                     />
-                    {errors.currencies && <ErrorText text={'Selecting a currency is required!'} />}
+                    <ErrorText 
+                        error={errors.currencies} 
+                        errType={'required'}
+                        text={'Selecting a currency is required!'} />
                 </Form.Group>
                 <Button text={'Create'} isLoading={isLoading}/>
             </Form>

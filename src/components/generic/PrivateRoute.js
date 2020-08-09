@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
-import { getAuthStatus } from '../app/reducers/authReducer'
+import { getAuthStatus } from '../../app/reducers/authReducer'
 
 function PrivateRoute({ authStatus, location, component: Component, ...rest }) {
     return (

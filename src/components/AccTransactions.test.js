@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import AccTransactions from './AccTransactions'
-import { Table } from 'react-bootstrap'
 
 const renderComp = (props={}) => {
     return shallow(<AccTransactions {...props} />)

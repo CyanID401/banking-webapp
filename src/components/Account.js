@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import SelectList from './SelectList'
+import SelectList from './generic/SelectList'
 import AccTransactions from './AccTransactions'
 import { Container } from 'react-bootstrap'
 import { fixedFloat } from '../scripts/utilities'

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import Button from './Button'
-import SelectList from './SelectList'
-import ErrorText from './ErrorText'
+import Button from './generic/Button'
+import SelectList from './generic/SelectList'
+import ErrorText from './generic/ErrorText'
 import { Form } from 'react-bootstrap'
 
 const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
@@ -26,7 +26,11 @@ const AccDelete = ({ accounts, isLoading, deleteAccount }) => {
                         control={control}
                         rules={{ required: true }}
                     />
-                    {errors.account && <ErrorText text={'Selecting an account is required!'} />}
+                    <ErrorText 
+                        error={errors.account} 
+                        errType={'required'}  
+                        text={'Selecting an account is required!'} 
+                    />
                 </Form.Group>
                 <Button text={'Delete'} isLoading={isLoading} />
             </Form>
